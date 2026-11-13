@@ -48,6 +48,18 @@ Most cleaners stick to temp files and the Recycle Bin, and Windows' own tools mi
 
 Plus a **Space map** that lets you click down through any drive folder by folder and see the biggest files on your PC.
 
+## Background checks
+
+Open **Settings** using the gear in the title bar. Background features are optional and start turned off.
+
+- **Keep Roomy in the system tray:** closing the window keeps Roomy running. The tray menu lets you open Roomy, scan, pause reminders or quit.
+- **Start with Windows:** launch quietly in the tray when you sign in. Roomy respects startup choices made in Windows Settings and Task Manager.
+- **Low-space alerts:** check your system drive every 30 or 60 minutes. Choose a threshold from 1 to 500 GB (10 GB by default). These checks only read available disk space.
+- **Weekly cache checks:** starting one week after you enable them, check temporary files, browser caches, app caches and crash reports. Checks wait for five minutes of inactivity and pause on battery power or when you start using the PC. They stop after five minutes and can try again later.
+- **Reminders:** at most one per day across both kinds of check, with a one-day pause and Windows notification controls. Weekly reminders require at least 1 GB of cleanup candidates. Review always opens a fresh scan; nothing is automatically deleted.
+
+Preferences, reminder cooldowns and snooze times stay in `%LOCALAPPDATA%\Roomy\settings.json`. Background checks run while Roomy is open or in the tray. **Quit Roomy** stops them until the next launch. Elevated sessions do not run background checks. Demo settings are temporary and do not register startup or send Windows notifications.
+
 <p align="center">
   <img src="docs/shots/05-space-map.png" alt="Space map" width="49%">
   <img src="docs/shots/07-done.png" alt="Done screen" width="49%">
@@ -65,6 +77,8 @@ Plus a **Space map** that lets you click down through any drive folder by folder
 ## Install
 
 Grab **Roomy-Setup.exe** (installs per-user, no admin needed) or **Roomy-portable.exe** from [Releases](https://github.com/krezio/roomy/releases/latest). A Microsoft Store version is on the way.
+
+Requires Windows 10 version 2004 or later, or Windows 11.
 
 <p align="center">
   <video src="site/assets/video/roomy-demo.mp4" width="860" autoplay muted loop playsinline></video>
@@ -94,6 +108,7 @@ Handy flags:
 | Flag | What it does |
 |---|---|
 | `--demo` | Uses made-up data. Nothing on your PC is read or touched. |
+| `--background` | Starts in the tray if background mode is enabled; otherwise exits. |
 | `--shots <dir>` | Runs the demo and saves screenshots of every screen to `<dir>`. |
 | `--scan-report <file>` | Runs a real, read-only scan and writes the results to a text file. |
 | `--export-icon <file.ico>` | Renders the app icon. |
@@ -111,6 +126,19 @@ site/           roomy.krezio.xyz
 ```
 
 ## Contributing
+
+Run the background settings and reminder tests on Windows:
+
+```bash
+dotnet test tests/Roomy.Tests -c Release
+```
+
+Desktop lifecycle checks use demo data and temporary in-memory preferences. The optional notification check uses its own test-app identity and removes its notification and registration afterward:
+
+```bash
+dotnet run --project tests/Roomy.DesktopChecks -c Release
+dotnet run --project tests/Roomy.DesktopChecks -c Release -- --notifications
+```
 
 Know a cache folder Roomy should clean, or found something it gets wrong? [Open an issue](https://github.com/krezio/roomy/issues) or send a pull request. And if Roomy helped you, a ⭐ really does help others find it.
 

@@ -21,6 +21,7 @@ public sealed class MainVM : ObservableObject
         CleanCommand = new RelayCommand(() => _ = CleanAsync(), () => SelectedTotal > 0);
         RestartAdminCommand = new RelayCommand(RestartAsAdmin);
         ShareCommand = new RelayCommand(() => ShareRequested?.Invoke(this, EventArgs.Empty));
+        SettingsCommand = new RelayCommand(() => SettingsRequested?.Invoke(this, EventArgs.Empty));
         HomeCommand = new RelayCommand(() => { RefreshDrives(); State = AppState.Home; });
         ConfirmYesCommand = new RelayCommand(() => CloseConfirm(true));
         ConfirmNoCommand = new RelayCommand(() => CloseConfirm(false));
@@ -33,6 +34,8 @@ public sealed class MainVM : ObservableObject
     public bool ShowAdminBadge => Admin.IsElevated && !IsDemo;
     public SpaceMapVM SpaceMap { get; }
     public event EventHandler? ShareRequested;
+    public event EventHandler? SettingsRequested;
+    public RelayCommand SettingsCommand { get; }
 
     public RelayCommand ScanCommand { get; }
     public RelayCommand CleanCommand { get; }

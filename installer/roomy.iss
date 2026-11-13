@@ -23,6 +23,7 @@ SolidCompression=yes
 WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
+MinVersion=10.0.19041
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
@@ -36,3 +37,9 @@ Name: "{autodesktop}\Roomy"; Filename: "{app}\Roomy.exe"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\Roomy.exe"; Description: "Launch Roomy"; Flags: nowait postinstall skipifsilent
+
+[UninstallRun]
+Filename: "{app}\Roomy.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated; RunOnceId: "RoomyBackground"
+
+[Registry]
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "Roomy"; Flags: dontcreatekey uninsdeletevalue

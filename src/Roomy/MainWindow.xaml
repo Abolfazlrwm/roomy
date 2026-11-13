@@ -188,6 +188,8 @@
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Style="{StaticResource ChromeButton}" Content="&#xE713;" ToolTip="Settings"
+                            AutomationProperties.Name="Settings" Command="{Binding SettingsCommand}" />
                     <Button Style="{StaticResource ChromeButton}" Content="&#xE921;" Click="Min_Click" />
                     <Button x:Name="MaxButton" Style="{StaticResource ChromeButton}" Content="&#xE922;" Click="Max_Click" />
                     <Button Style="{StaticResource CloseButton}" Content="&#xE8BB;" Click="Close_Click" />

@@ -1,14 +1,33 @@
 using System.Windows;
 using Roomy.ViewModels;
+using Roomy.Services;
+using Roomy.Core;
 
 namespace Roomy;
 
 public partial class App : Application
 {
-    protected override void OnStartup(StartupEventArgs e)
+    SingleInstance? _instance;
+    DesktopController? _desktop;
+    NotificationService? _activationRelay;
+
+    protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         var args = e.Args;
+        if (args.Contains("--uninstall"))
+        {
+            try
+            {
+                using var instance = new SingleInstance(Admin.IsElevated, demo: false);
+                if (!instance.IsPrimary) await instance.SendAsync("quit");
+                await StartupRegistration.SetEnabledAsync(false);
+                Microsoft.Toolkit.Uwp.Notifications.ToastNotificationManagerCompat.Uninstall();
+            }
+            catch { /* Uninstall must still work when Windows registration is already gone. */ }
+            Shutdown();
+            return;
+        }
         string? Arg(string name)
         {
             var i = Array.IndexOf(args, name);
@@ -67,6 +86,37 @@ public partial class App : Application
         var record = Arg("--record");
         if (record != null) shots = null;
         var demo = shots != null || record != null || args.Contains("--demo");
+        var automation = shots != null || record != null;
+        var notificationLaunch = args.Contains("-ToastActivated");
+        var background = args.Contains("--background");
+        if (!automation)
+        {
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            _instance = new SingleInstance(Admin.IsElevated, demo);
+            if (!_instance.IsPrimary)
+            {
+                if (notificationLaunch)
+                {
+                    _activationRelay = new NotificationService();
+                    _activationRelay.Activated += command => Dispatcher.BeginInvoke(async () =>
+                    {
+                        await _instance.SendAsync(command);
+                        Shutdown();
+                    });
+                    if (!_activationRelay.Initialize()) { Shutdown(); return; }
+                    // COM activation should arrive promptly. Do not leave a hidden relay alive forever.
+                    await Task.Delay(TimeSpan.FromSeconds(10));
+                    Shutdown();
+                }
+                else
+                {
+                    var sent = await _instance.SendAsync(background ? "background" : args.Contains("--scan") ? "scan" : "open");
+                    if (!sent && !background) MessageBox.Show("Roomy is already opening. Try again in a moment.", "Roomy");
+                    Shutdown();
+                }
+                return;
+            }
+        }
         var vm = new MainVM(demo);
         var window = new MainWindow(vm);
 
@@ -82,11 +132,38 @@ public partial class App : Application
         }
 
         MainWindow = window;
-        window.Show();
+        if (!automation)
+        {
+            _desktop = new DesktopController(window, vm, Shutdown);
+            _instance!.Listen(command => Dispatcher.BeginInvoke(() => _desktop.Handle(command)));
+            if (background && !_desktop.Preferences.RunInBackground) { Shutdown(); return; }
+            if (notificationLaunch) _desktop.RegisterNotificationActivation();
+        }
+        if (!background && !notificationLaunch) window.Show();
+
+        if (notificationLaunch && !_desktop!.Preferences.RunInBackground)
+        {
+            // A snooze/disable action can cold-start Roomy without needing a window.
+            _ = ExitUnusedActivationAsync();
+        }
 
         if (shots != null) _ = window.RunScreenshotsAsync(shots);
         else if (record != null) _ = window.RecordDemoAsync(record);
         else if (args.Contains("--scan")) vm.ScanCommand.Execute(null);
+    }
+
+    async Task ExitUnusedActivationAsync()
+    {
+        await Task.Delay(TimeSpan.FromSeconds(10));
+        if (MainWindow?.IsVisible != true && _desktop?.Preferences.RunInBackground != true) Shutdown();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        _desktop?.Dispose();
+        _activationRelay?.Dispose();
+        _instance?.Dispose();
+        base.OnExit(e);
     }
 
     partial void RunExtras(string[] args, ref bool handled);
