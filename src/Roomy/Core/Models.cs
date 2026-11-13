@@ -86,7 +86,7 @@ public static class Catalog
         "browser" => new CleanupCategory
         {
             Id = id, Title = "Browser cache", Glyph = G.Globe,
-            Description = "Saved copies of websites. You stay logged in — sites may just load a little slower the first time.",
+            Description = "Saved copies of websites. You stay logged in. Sites may just load a little slower the first time.",
             SelectedByDefault = true,
         },
         "apps" => new CleanupCategory
@@ -98,7 +98,7 @@ public static class Catalog
         "shaders" => new CleanupCategory
         {
             Id = id, Title = "Graphics shader cache", Glyph = G.Color,
-            Description = "Game graphics your GPU pre-built. Safe to clear — games rebuild it, but the next launch may stutter a bit.",
+            Description = "Game graphics your GPU pre-built. Safe to clear. Games rebuild it, but the next launch may stutter a bit.",
             SelectedByDefault = false,
         },
         "crash" => new CleanupCategory
@@ -121,12 +121,12 @@ public static class Catalog
         "downloads" => new CleanupCategory
         {
             Id = id, Title = "Big old downloads", Glyph = G.Download, Safety = Safety.Review,
-            Description = "Large files in your Downloads you haven't touched in over a month — old videos, ISOs, zips.",
+            Description = "Large files in your Downloads you haven't touched in over a month: old videos, ISOs, zips.",
         },
         "games" => new CleanupCategory
         {
             Id = id, Title = "Games you haven't played", Glyph = G.Game, Safety = Safety.Review,
-            Description = "Steam games you haven't opened in 2+ months. Uninstall through Steam — you can always reinstall.",
+            Description = "Steam games you haven't opened in 2+ months. Uninstall through Steam. You can always reinstall.",
             Action = CleanAction.SteamUninstall,
         },
         "winold" => new CleanupCategory

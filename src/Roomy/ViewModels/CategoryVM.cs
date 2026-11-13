@@ -48,7 +48,7 @@ public sealed class CategoryVM : ObservableObject
     public bool HasDetails => ShowItemList || IsSettings || IsBlocked;
 
     public long Size => Model.Size;
-    public string SizeText => Model.Blocked ? "—" : Format.Bytes(Size);
+    public string SizeText => Model.Blocked ? "N/A" : Format.Bytes(Size);
     public string SafetyText => Model.Blocked ? "NEEDS ADMIN" : IsSafe ? "SAFE" : "YOUR CALL";
     public Brush BadgeBg => Res.Brush(Model.Blocked ? "MutedSoftBrush" : IsSafe ? "AccentSoftBrush" : "WarnSoftBrush");
     public Brush BadgeFg => Res.Brush(Model.Blocked ? "MutedBrush" : IsSafe ? "AccentBrush" : "WarnBrush");
