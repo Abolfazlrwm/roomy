@@ -17,6 +17,8 @@ public partial class SettingsWindow : Window
     public SettingsWindow(DesktopController desktop)
     {
         InitializeComponent();
+        var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        VersionText.Text = v is null ? "Roomy" : $"Roomy {v.Major}.{v.Minor}.{v.Build}";
         _desktop = desktop;
         var p = desktop.Preferences;
         BackgroundCheck.IsChecked = p.RunInBackground;

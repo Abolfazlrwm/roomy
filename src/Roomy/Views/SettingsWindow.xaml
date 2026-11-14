@@ -133,10 +133,13 @@
         </ScrollViewer>
         <StackPanel Grid.Row="2" Margin="0,16,0,0">
             <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="{StaticResource WarnBrush}" FontSize="12.5" Margin="0,0,0,12" />
+            <Grid>
+            <TextBlock x:Name="VersionText" FontSize="12" Foreground="{StaticResource FaintBrush}" VerticalAlignment="Center" AutomationProperties.Name="Roomy version" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Cancel" IsCancel="True" Click="Cancel_Click" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0" />
                 <Button x:Name="SaveButton" Content="Save settings" IsDefault="True" Style="{StaticResource PrimaryButton}" Click="Save_Click" />
             </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>
