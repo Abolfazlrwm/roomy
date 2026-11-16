@@ -27,14 +27,16 @@ public static class FileOps
         var cutoff = Cutoff(minAge);
         try
         {
-            if (File.Exists(path))
+            // Only count what really lives at this path: nothing reached through a junction or symlink.
+            if (SafeFs.TrustedPath(path) is not { } root) return (0, 0);
+            if (File.Exists(root))
             {
-                var fi = new FileInfo(path);
+                var fi = new FileInfo(root);
                 return fi.LastWriteTimeUtc <= cutoff ? (fi.Length, 1) : (0, 0);
             }
-            if (!Directory.Exists(path) || IsReparse(path)) return (0, 0);
+            if (!Directory.Exists(root)) return (0, 0);
 
-            var e = new FileSystemEnumerable<(long Len, DateTime Mod)>(path,
+            var e = new FileSystemEnumerable<(long Len, DateTime Mod)>(root,
                 (ref FileSystemEntry x) => (x.Length, x.LastWriteTimeUtc.UtcDateTime), Deep())
             {
                 ShouldIncludePredicate = (ref FileSystemEntry x) => !x.IsDirectory,
@@ -52,28 +54,30 @@ public static class FileOps
 
     /// <summary>
     /// Deletes a file, or the contents of a folder (the folder itself stays).
-    /// Files that are in use are skipped, never forced.
+    /// Files that are in use are skipped, never forced. Nothing is reached through a junction or
+    /// symlink, wherever it sits in the path, and every delete is checked against the file's real location.
     /// </summary>
     public static DeleteResult Delete(string path, TimeSpan? minAge, CancellationToken ct = default)
     {
         var cutoff = Cutoff(minAge);
+        if (SafeFs.TrustedPath(path) is not { } root) return default;
+        Guard(path);
+        Guard(root);
 
-        if (File.Exists(path))
+        if (File.Exists(root))
         {
-            Guard(path);
-            var fi = new FileInfo(path);
+            var fi = new FileInfo(root);
             if (fi.LastWriteTimeUtc > cutoff) return default;
             long len = fi.Length;
-            return TryDeleteFile(path) ? new(len, 1, 0) : new(0, 0, 1);
+            return SafeFs.Delete(root, root) ? new(len, 1, 0) : new(0, 0, 1);
         }
 
-        if (!Directory.Exists(path) || IsReparse(path)) return default;
-        Guard(path);
+        if (!Directory.Exists(root)) return default;
 
         List<(string, long, DateTime)> files;
         try
         {
-            files = new FileSystemEnumerable<(string, long, DateTime)>(path,
+            files = new FileSystemEnumerable<(string, long, DateTime)>(root,
                 (ref FileSystemEntry x) => (x.ToFullPath(), x.Length, x.LastWriteTimeUtc.UtcDateTime), Deep())
             {
                 ShouldIncludePredicate = (ref FileSystemEntry x) => !x.IsDirectory,
@@ -87,20 +91,20 @@ public static class FileOps
         {
             ct.ThrowIfCancellationRequested();
             if (mod > cutoff) continue;
-            if (TryDeleteFile(p)) { freed += len; ok++; }
+            if (SafeFs.Delete(p, root)) { freed += len; ok++; }
             else failed++;
         }
 
         // Tidy up now-empty subfolders, deepest first. Never removes the root.
         try
         {
-            var dirs = new FileSystemEnumerable<string>(path, (ref FileSystemEntry x) => x.ToFullPath(), Deep())
+            var dirs = new FileSystemEnumerable<string>(root, (ref FileSystemEntry x) => x.ToFullPath(), Deep())
             {
                 ShouldIncludePredicate = (ref FileSystemEntry x) => x.IsDirectory,
             }.ToList();
             foreach (var d in dirs.OrderByDescending(d => d.Count(ch => ch == '\\')))
             {
-                try { Directory.Delete(d, recursive: false); } catch { }
+                SafeFs.Delete(d, root); // only succeeds if the folder is empty
             }
         }
         catch { }
@@ -111,30 +115,13 @@ public static class FileOps
     /// <summary>Sends a single file to the Recycle Bin, with the same guards as <see cref="Delete"/>.</summary>
     public static DeleteResult Recycle(string path, TimeSpan? minAge)
     {
-        if (!File.Exists(path)) return default;
+        if (SafeFs.TrustedPath(path) is not { } real || !File.Exists(real)) return default;
         Guard(path);
-        var fi = new FileInfo(path);
-        if (fi.LastWriteTimeUtc > Cutoff(minAge) || (fi.Attributes & FileAttributes.ReparsePoint) != 0) return default;
+        Guard(real);
+        var fi = new FileInfo(real);
+        if (fi.LastWriteTimeUtc > Cutoff(minAge)) return default;
         long len = fi.Length;
-        return Native.SendToRecycleBin(path) && !File.Exists(path) ? new(len, 1, 0) : new(0, 0, 1);
-    }
-
-    static bool TryDeleteFile(string p)
-    {
-        try
-        {
-            var a = File.GetAttributes(p);
-            if ((a & FileAttributes.ReadOnly) != 0) File.SetAttributes(p, a & ~FileAttributes.ReadOnly);
-            File.Delete(p);
-            return true;
-        }
-        catch { return false; }
-    }
-
-    static bool IsReparse(string dir)
-    {
-        try { return (File.GetAttributes(dir) & FileAttributes.ReparsePoint) != 0; }
-        catch { return true; }
+        return Native.SendToRecycleBin(real) && !File.Exists(real) ? new(len, 1, 0) : new(0, 0, 1);
     }
 
     static readonly string[] Protected = new[]
