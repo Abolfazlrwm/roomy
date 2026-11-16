@@ -1,8 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.1.3
 
+- **Russian translation.** Roomy now follows your Windows language and speaks Russian as well as English. Thanks to [@KVGeorgich](https://github.com/KVGeorgich) ([#2](https://github.com/krezio/roomy/pull/2), [#3](https://github.com/krezio/roomy/pull/3)).
+- **Recycle Bin option.** In Settings, choose to send old installers and big downloads to the Recycle Bin instead of deleting them, so you can get them back. Caches are still deleted, since apps rebuild them.
 - **More app caches.** Roomy now finds the Spotify, Epic Games Launcher and new Microsoft Teams caches. Spotify offline downloads are left alone.
+- **Sharper look.** Badges and pill buttons no longer have distorted corners. Thanks to [@spoonkuh](https://github.com/spoonkuh) ([#1](https://github.com/krezio/roomy/pull/1)).
+- The warning about Windows Update files now wraps on narrow windows.
 
 ## 0.1.2
 

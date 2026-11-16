@@ -71,13 +71,17 @@ Preferences, reminder cooldowns and snooze times stay in `%LOCALAPPDATA%\Roomy\s
 - **Your folders are hard-blocked.** Documents, Desktop, Pictures, Videos, Music, Downloads (as a folder), your user folder, Windows and Program Files can never be wiped. See [`FileOps.Guard`](src/Roomy/Core/FileOps.cs).
 - **Never follows junctions or symlinks**, so a link can't point the cleaner somewhere unexpected.
 - **In-use files are skipped**, never forced.
-- **"Your call" items start unticked** and ask for confirmation before permanent deletion.
+- **"Your call" items start unticked** and ask for confirmation before anything is removed.
 - **No network access at all.** No telemetry, no accounts, no updates phoning home.
-- **Deleted means deleted.** Cleaned files skip the Recycle Bin, and Roomy tells you so before you confirm.
+- **Your choice of permanent or Recycle Bin.** By default, cleaned files are deleted for good, and Roomy says so before you confirm. Turn on *Send files from Downloads to the Recycle Bin* in Settings to be able to restore old installers and downloads. If a file is too big for the bin, Windows asks before deleting it.
 - **No admin needed.** Roomy runs as a normal user. Only the *Windows leftovers* category (Windows Update downloads, Delivery Optimization cache, the Windows temp folder, system crash dumps) needs admin, and Roomy only asks if you click *Restart as admin*. Without it, that category is skipped.
 - **Background checks never delete.** They only read free space and cache sizes, then show a reminder. Every cleanup is something you start.
 
 Found something that looks unsafe? Please [open an issue](https://github.com/krezio/roomy/issues). Reviews of the cleanup code are very welcome.
+
+## Languages
+
+Roomy follows your Windows display language. It speaks **English** and **Русский** (thanks to [@KVGeorgich](https://github.com/KVGeorgich)). Want Roomy in your language? See [src/Roomy/Localization](src/Roomy/Localization/README.md). You only need to translate one file.
 
 ## Install
 
