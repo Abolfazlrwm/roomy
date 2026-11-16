@@ -101,7 +101,7 @@ public static class Scanner
             try
             {
                 var ps = Process.GetProcessesByName(proc);
-                if (ps.Length > 0) list.Add(name);
+                if (ps.Length > 0 && !list.Contains(name)) list.Add(name);
                 foreach (var p in ps) p.Dispose();
             }
             catch { }
@@ -193,6 +193,19 @@ public static class Scanner
             new[] { "discord", "discordptb", "discordcanary" }.SelectMany(d => Bits(Env.R(d)))));
         Add(cat, Item("Slack", null, c.Token, Bits(Env.R("Slack"))));
         Add(cat, Item("Microsoft Teams (classic)", null, c.Token, Bits(Env.R("Microsoft", "Teams"))));
+        // New Teams keeps its web cache in WebView2 profiles; settings and sign-in live elsewhere.
+        Add(cat, Item("Microsoft Teams", null, c.Token,
+            Subdirs(Env.L("Packages", "MSTeams_8wekyb3d8bbwe", "LocalCache", "Microsoft", "MSTeams", "EBWebView"))
+                .Where(p => Path.GetFileName(p) is var n && (n == "Default" || n.StartsWith("WV2Profile", StringComparison.Ordinal)))
+                .SelectMany(Bits)));
+        // Spotify's streaming cache (Data) and its built-in browser cache. Offline downloads (Storage) are left alone.
+        Add(cat, Item("Spotify", null, c.Token,
+            Bits(Env.L("Spotify", "Browser"))
+                .Append(Env.L("Spotify", "Data"))
+                .Append(Env.L("Packages", "SpotifyAB.SpotifyMusic_zpdnekdrzrea0", "LocalCache", "Spotify", "Data"))));
+        Add(cat, Item("Epic Games Launcher", null, c.Token,
+            Subdirs(Env.L("EpicGamesLauncher", "Saved"))
+                .Where(p => Path.GetFileName(p).StartsWith("webcache", StringComparison.OrdinalIgnoreCase))));
         Add(cat, Item("VS Code", null, c.Token,
             Bits(Env.R("Code")).Append(Env.R("Code", "CachedData")).Append(Env.R("Code", "CachedExtensionVSIXs"))));
         Add(cat, Item("Steam's web browser", null, c.Token, [Env.L("Steam", "htmlcache")]));
@@ -201,7 +214,8 @@ public static class Scanner
         Add(cat, Item("Yarn cache", null, c.Token, [Env.L("Yarn", "Cache")]));
         Add(cat, Item("NuGet web cache", null, c.Token, [Env.L("NuGet", "v3-cache")]));
         if (cat.Items.Count > 0)
-            cat.Note = RunningNote(Running(("Discord", "Discord"), ("slack", "Slack"), ("Code", "VS Code"), ("Teams", "Teams")));
+            cat.Note = RunningNote(Running(("Discord", "Discord"), ("slack", "Slack"), ("Code", "VS Code"), ("Teams", "Teams"),
+                ("ms-teams", "Teams"), ("Spotify", "Spotify"), ("EpicGamesLauncher", "Epic Games Launcher")));
         return Sorted(cat);
     }
 
