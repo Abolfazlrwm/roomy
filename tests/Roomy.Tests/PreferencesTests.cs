@@ -12,7 +12,23 @@ public sealed class PreferencesTests : IDisposable
     {
         var p = new PreferencesStore(SettingsPath).Load();
         Assert.False(p.RunInBackground);
+        Assert.False(p.RecycleDownloads);
         Assert.False(File.Exists(SettingsPath));
+    }
+
+    [Fact]
+    public void RecycleChoiceSurvivesRestart()
+    {
+        new PreferencesStore(SettingsPath).Save(new() { RecycleDownloads = true });
+        Assert.True(new PreferencesStore(SettingsPath).Load().RecycleDownloads);
+    }
+
+    [Fact]
+    public void OlderSettingsFilesKeepDeletingPermanently()
+    {
+        Directory.CreateDirectory(_folder);
+        File.WriteAllText(SettingsPath, "{\"RunInBackground\":true}");
+        Assert.False(new PreferencesStore(SettingsPath).Load().RecycleDownloads);
     }
 
     [Fact]

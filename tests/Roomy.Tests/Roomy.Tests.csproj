@@ -16,6 +16,11 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1" PrivateAssets="all" />
     <Using Include="Xunit" />
     <Compile Include="../../src/Roomy/Core/Preferences.cs" Link="Core/Preferences.cs" />
+    <Compile Include="../../src/Roomy/Core/FileOps.cs" Link="Core/FileOps.cs" />
+    <Compile Include="../../src/Roomy/Core/Env.cs" Link="Core/Env.cs" />
+    <Compile Include="../../src/Roomy/Core/Native.cs" Link="Core/Native.cs" />
+    <Compile Include="../../src/Roomy/Core/Models.cs" Link="Core/Models.cs" />
+    <Compile Include="../../src/Roomy/Core/Cleaner.cs" Link="Core/Cleaner.cs" />
     <Compile Include="../../src/Roomy/Localization/Loc.cs" Link="Localization/Loc.cs" />
     <Compile Include="../../src/Roomy/Localization/S.g.cs" Link="Localization/S.g.cs" />
     <EmbeddedResource Include="../../src/Roomy/Localization/Strings.resx" Link="Localization/Strings.resx">

@@ -238,6 +238,11 @@ public sealed class MainVM : ObservableObject
     public bool HasSkipped => Skipped > 100L * 1024 * 1024;
     public string SkippedText => Loc.Format("InUseSkippedMessage", Format.Bytes(Skipped));
 
+    long _recycled;
+    public long Recycled { get => _recycled; private set => Set(ref _recycled, value); }
+    public bool HasRecycled => Recycled > 0;
+    public string RecycledText => Loc.Format("RecycledMessage", Format.Bytes(Recycled));
+
     double _before, _after;
     public double BeforeFraction { get => _before; private set => Set(ref _before, value); }
     public double AfterFraction { get => _after; private set => Set(ref _after, value); }
@@ -259,14 +264,15 @@ public sealed class MainVM : ObservableObject
             .ToList();
         if (jobs.Count == 0) return;
 
+        // Read fresh so the choice also applies after "Restart as admin".
+        var recycle = !IsDemo && new PreferencesStore(PreferencesStore.DefaultPath).Load().RecycleDownloads;
         var review = jobs.Where(j => j.Category.Safety == Safety.Review).SelectMany(j => j.Items).ToList();
         if (review.Count > 0)
         {
-            var ok = await ConfirmAsync(
-                S.DeleteTheseForGood,
-                Loc.Format("PickedFiles", review.Count, Loc.Files(review.Count)) + $" from your Downloads ({Format.Bytes(review.Sum(i => i.Size))}). " +
-                S.DeleteWarning,
-                S.DeletePermanently);
+            var picked = Loc.Format("PickedFromDownloads", review.Count, Loc.Files(review.Count), Format.Bytes(review.Sum(i => i.Size)));
+            var ok = recycle
+                ? await ConfirmAsync(S.MoveToBinTitle, picked + S.MoveToBinWarning, S.MoveToBin)
+                : await ConfirmAsync(S.DeleteTheseForGood, picked + S.DeleteWarning, S.DeletePermanently);
             if (!ok) return;
         }
 
@@ -294,18 +300,21 @@ public sealed class MainVM : ObservableObject
                     CleanProgress = p.Fraction;
                     CleanStep = p.Step;
                 });
-                r = await Task.Run(() => Cleaner.Run(jobs, progress));
+                r = await Task.Run(() => Cleaner.Run(jobs, progress, recycle));
                 await Task.Delay(500);
             }
 
             Freed = r.Freed;
             Skipped = r.Skipped;
+            Recycled = r.Recycled;
             RefreshDrives();
             AfterFraction = drive?.UsedFraction ?? 0;
             AfterText = drive is null ? "" : Loc.Format("FreeBytes", Format.Bytes(drive.Free));
             DoneSubtitle = drive is null ? "" : Loc.Format("DriveNowFree", drive.Letter, Format.Bytes(drive.Free));
             Raise(nameof(HasSkipped));
             Raise(nameof(SkippedText));
+            Raise(nameof(HasRecycled));
+            Raise(nameof(RecycledText));
             State = AppState.Done;
         }
         catch (Exception ex)

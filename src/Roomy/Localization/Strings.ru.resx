@@ -146,10 +146,10 @@
     <value>Отмена</value>
   </data>
   <data name="SettingsSection" xml:space="preserve">
-    <value>Немного помощи в фоне</value>
+    <value>Настройки</value>
   </data>
   <data name="SettingsSectionHint" xml:space="preserve">
-    <value>Выберите, когда Roomy проверяет ПК. Все данные остаются на этом компьютере.</value>
+    <value>Выберите, как Roomy очищает и когда проверяет ПК. Все данные остаются на этом компьютере.</value>
   </data>
   <data name="KeepInTray" xml:space="preserve">
     <value>Оставлять Roomy в системном трее</value>
@@ -663,5 +663,26 @@
   </data>
   <data name="AgoDaysFew" xml:space="preserve">
     <value>{0} дня назад</value>
+  </data>
+  <data name="RecycleDownloads" xml:space="preserve">
+    <value>Отправлять файлы из «Загрузок» в корзину</value>
+  </data>
+  <data name="RecycleDownloadsHint" xml:space="preserve">
+    <value>Старые установщики и крупные загрузки попадают в корзину, а не удаляются, так что их можно вернуть. Место освободится, когда вы очистите корзину. Кэш всегда удаляется — приложения сами его восстановят.</value>
+  </data>
+  <data name="PickedFromDownloads" xml:space="preserve">
+    <value>Вы выбрали в «Загрузках» {0} {1} ({2}). </value>
+  </data>
+  <data name="MoveToBinTitle" xml:space="preserve">
+    <value>Переместить это в корзину?</value>
+  </data>
+  <data name="MoveToBinWarning" xml:space="preserve">
+    <value>Если передумаете, их можно восстановить из корзины. Место освободится, когда вы её очистите.</value>
+  </data>
+  <data name="MoveToBin" xml:space="preserve">
+    <value>Переместить в корзину</value>
+  </data>
+  <data name="RecycledMessage" xml:space="preserve">
+    <value>{0} перемещено в корзину. Очистите её, когда будете уверены, чтобы освободить и это место.</value>
   </data>
 </root>

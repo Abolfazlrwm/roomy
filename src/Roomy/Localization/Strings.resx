@@ -146,10 +146,10 @@
     <value>Cancel</value>
   </data>
   <data name="SettingsSection" xml:space="preserve">
-    <value>A little help in the background</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsSectionHint" xml:space="preserve">
-    <value>Choose when Roomy checks in. Everything stays on this PC.</value>
+    <value>Choose how Roomy cleans and when it checks in. Everything stays on this PC.</value>
   </data>
   <data name="KeepInTray" xml:space="preserve">
     <value>Keep Roomy in the system tray</value>
@@ -663,5 +663,26 @@
   </data>
   <data name="AgoDaysFew" xml:space="preserve">
     <value>{0} days ago</value>
+  </data>
+  <data name="RecycleDownloads" xml:space="preserve">
+    <value>Send files from Downloads to the Recycle Bin</value>
+  </data>
+  <data name="RecycleDownloadsHint" xml:space="preserve">
+    <value>Old installers and big downloads go to the Recycle Bin instead of being deleted, so you can get them back. The space is freed once you empty the bin. Caches are always deleted, since apps rebuild them.</value>
+  </data>
+  <data name="PickedFromDownloads" xml:space="preserve">
+    <value>You picked {0} {1} from your Downloads ({2}). </value>
+  </data>
+  <data name="MoveToBinTitle" xml:space="preserve">
+    <value>Move these to the Recycle Bin?</value>
+  </data>
+  <data name="MoveToBinWarning" xml:space="preserve">
+    <value>You can restore them from the Recycle Bin if you change your mind. The space is freed once you empty it.</value>
+  </data>
+  <data name="MoveToBin" xml:space="preserve">
+    <value>Move to Recycle Bin</value>
+  </data>
+  <data name="RecycledMessage" xml:space="preserve">
+    <value>{0} went to the Recycle Bin. Empty it when you're sure, to free that space too.</value>
   </data>
 </root>

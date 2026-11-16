@@ -95,6 +95,12 @@
             <StackPanel x:Name="Options" Margin="0,0,12,0">
                 <Border Style="{StaticResource Card}" Padding="18" Margin="0,0,0,14">
                     <StackPanel>
+                        <CheckBox x:Name="RecycleCheck" Content="{x:Static loc:S.RecycleDownloads}" Style="{StaticResource SettingCheck}" />
+                        <TextBlock Style="{StaticResource Hint}" Text="{x:Static loc:S.RecycleDownloadsHint}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Padding="18" Margin="0,0,0,14">
+                    <StackPanel>
                         <CheckBox x:Name="BackgroundCheck" Content="{x:Static loc:S.KeepInTray}" Style="{StaticResource SettingCheck}" Click="Background_Click" />
                         <TextBlock Style="{StaticResource Hint}" Text="{x:Static loc:S.KeepInTrayHint}" />
                         <CheckBox x:Name="StartupCheck" Content="{x:Static loc:S.StartWithWindows}" Style="{StaticResource SettingCheck}" Margin="0,20,0,0" Click="EnableBackground_Click" />

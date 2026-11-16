@@ -237,13 +237,13 @@
     },
     {
       "key": "SettingsSection",
-      "en": "A little help in the background",
-      "ru": "Немного помощи в фоне"
+      "en": "Settings",
+      "ru": "Настройки"
     },
     {
       "key": "SettingsSectionHint",
-      "en": "Choose when Roomy checks in. Everything stays on this PC.",
-      "ru": "Выберите, когда Roomy проверяет ПК. Все данные остаются на этом компьютере."
+      "en": "Choose how Roomy cleans and when it checks in. Everything stays on this PC.",
+      "ru": "Выберите, как Roomy очищает и когда проверяет ПК. Все данные остаются на этом компьютере."
     },
     {
       "key": "KeepInTray",
@@ -1099,6 +1099,41 @@
       "key": "AgoDaysFew",
       "en": "{0} days ago",
       "ru": "{0} дня назад"
+    },
+    {
+      "key": "RecycleDownloads",
+      "en": "Send files from Downloads to the Recycle Bin",
+      "ru": "Отправлять файлы из «Загрузок» в корзину"
+    },
+    {
+      "key": "RecycleDownloadsHint",
+      "en": "Old installers and big downloads go to the Recycle Bin instead of being deleted, so you can get them back. The space is freed once you empty the bin. Caches are always deleted, since apps rebuild them.",
+      "ru": "Старые установщики и крупные загрузки попадают в корзину, а не удаляются, так что их можно вернуть. Место освободится, когда вы очистите корзину. Кэш всегда удаляется — приложения сами его восстановят."
+    },
+    {
+      "key": "PickedFromDownloads",
+      "en": "You picked {0} {1} from your Downloads ({2}). ",
+      "ru": "Вы выбрали в «Загрузках» {0} {1} ({2}). "
+    },
+    {
+      "key": "MoveToBinTitle",
+      "en": "Move these to the Recycle Bin?",
+      "ru": "Переместить это в корзину?"
+    },
+    {
+      "key": "MoveToBinWarning",
+      "en": "You can restore them from the Recycle Bin if you change your mind. The space is freed once you empty it.",
+      "ru": "Если передумаете, их можно восстановить из корзины. Место освободится, когда вы её очистите."
+    },
+    {
+      "key": "MoveToBin",
+      "en": "Move to Recycle Bin",
+      "ru": "Переместить в корзину"
+    },
+    {
+      "key": "RecycledMessage",
+      "en": "{0} went to the Recycle Bin. Empty it when you're sure, to free that space too.",
+      "ru": "{0} перемещено в корзину. Очистите её, когда будете уверены, чтобы освободить и это место."
     }
   ]
 }

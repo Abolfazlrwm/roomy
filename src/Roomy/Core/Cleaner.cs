@@ -3,15 +3,21 @@ namespace Roomy.Core;
 
 public sealed record CleanJob(CleanupCategory Category, IReadOnlyList<CleanupItem> Items);
 
-public sealed record CleanResult(long Freed, long Skipped, int Files);
+/// <param name="Recycled">Bytes moved to the Recycle Bin. They are not counted in <paramref name="Freed"/>.</param>
+public sealed record CleanResult(long Freed, long Skipped, int Files, long Recycled = 0);
 
 public static class Cleaner
 {
-    public static CleanResult Run(IReadOnlyList<CleanJob> jobs, IProgress<(double Fraction, string Step)>? progress, CancellationToken ct = default)
+    /// <param name="recycleReview">Send "your call" files (Downloads) to the Recycle Bin instead of deleting them.</param>
+    public static CleanResult Run(IReadOnlyList<CleanJob> jobs, IProgress<(double Fraction, string Step)>? progress,
+        bool recycleReview = false, CancellationToken ct = default)
     {
         long total = Math.Max(1, jobs.Sum(j => j.Items.Sum(i => i.Size)));
-        long done = 0, freed = 0, skipped = 0;
+        long done = 0, freed = 0, skipped = 0, recycled = 0;
         int files = 0;
+
+        // Empty the bin before recycling anything, so this cleanup never wipes the files it just recycled.
+        if (recycleReview) jobs = jobs.OrderBy(j => j.Category.Action == CleanAction.EmptyRecycleBin ? 0 : 1).ToList();
 
         foreach (var job in jobs)
         {
@@ -33,6 +39,7 @@ public static class Cleaner
             }
 
             if (job.Category.Action != CleanAction.Delete) continue;
+            bool recycle = recycleReview && job.Category.Safety == Safety.Review;
 
             foreach (var item in job.Items)
             {
@@ -42,14 +49,24 @@ public static class Cleaner
                 {
                     try
                     {
-                        var r = FileOps.Delete(p, item.MinAge, ct);
-                        got += r.Freed;
-                        files += r.Files;
+                        if (recycle && item.IsFile)
+                        {
+                            var r = FileOps.Recycle(p, item.MinAge);
+                            recycled += r.Freed;
+                            files += r.Files;
+                            got += r.Freed;
+                        }
+                        else
+                        {
+                            var r = FileOps.Delete(p, item.MinAge, ct);
+                            freed += r.Freed;
+                            got += r.Freed;
+                            files += r.Files;
+                        }
                     }
                     catch (OperationCanceledException) { throw; }
                     catch { /* protected or vanished: skip */ }
                 }
-                freed += got;
                 skipped += Math.Max(0, item.Size - got);
                 done += item.Size;
                 progress?.Report(((double)done / total, step));
@@ -57,6 +74,6 @@ public static class Cleaner
         }
 
         progress?.Report((1, S.AllDone));
-        return new CleanResult(freed, skipped, files);
+        return new CleanResult(freed, skipped, files, recycled);
     }
 }

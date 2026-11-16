@@ -25,6 +25,7 @@ public partial class SettingsWindow : Window
         BackgroundCheck.IsChecked = p.RunInBackground;
         LowSpaceCheck.IsChecked = p.LowSpaceAlerts;
         WeeklyCheck.IsChecked = p.WeeklyChecks;
+        RecycleCheck.IsChecked = p.RecycleDownloads;
         ThresholdBox.Text = p.LowSpaceGB.ToString(CultureInfo.InvariantCulture);
         IntervalBox.SelectedValue = p.CheckEveryMinutes.ToString(CultureInfo.InvariantCulture);
         _snoozedUntil = p.SnoozedUntil;
@@ -128,6 +129,7 @@ public partial class SettingsWindow : Window
                 RunInBackground = BackgroundCheck.IsChecked == true || start,
                 LowSpaceAlerts = LowSpaceCheck.IsChecked == true,
                 WeeklyChecks = WeeklyCheck.IsChecked == true,
+                RecycleDownloads = RecycleCheck.IsChecked == true,
                 LowSpaceGB = threshold,
                 CheckEveryMinutes = IntervalBox.SelectedValue as string == "60" ? 60 : 30,
                 SnoozedUntil = _pauseChanged ? _snoozedUntil : current.SnoozedUntil,

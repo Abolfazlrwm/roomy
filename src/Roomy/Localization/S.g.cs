@@ -148,10 +148,10 @@ public static class S
     /// <summary>Cancel</summary>
     public static string Cancel => Loc.Get("Cancel");
 
-    /// <summary>A little help in the background</summary>
+    /// <summary>Settings</summary>
     public static string SettingsSection => Loc.Get("SettingsSection");
 
-    /// <summary>Choose when Roomy checks in. Everything stays on this PC.</summary>
+    /// <summary>Choose how Roomy cleans and when it checks in. Everything stays on this PC.</summary>
     public static string SettingsSectionHint => Loc.Get("SettingsSectionHint");
 
     /// <summary>Keep Roomy in the system tray</summary>
@@ -666,4 +666,25 @@ public static class S
 
     /// <summary>{0} days ago</summary>
     public static string AgoDaysFew => Loc.Get("AgoDaysFew");
+
+    /// <summary>Send files from Downloads to the Recycle Bin</summary>
+    public static string RecycleDownloads => Loc.Get("RecycleDownloads");
+
+    /// <summary>Old installers and big downloads go to the Recycle Bin instead of being deleted, so you can get them back. The space is freed once you empty the bin. Caches are always deleted, since apps rebuild them.</summary>
+    public static string RecycleDownloadsHint => Loc.Get("RecycleDownloadsHint");
+
+    /// <summary>You picked {0} {1} from your Downloads ({2}). </summary>
+    public static string PickedFromDownloads => Loc.Get("PickedFromDownloads");
+
+    /// <summary>Move these to the Recycle Bin?</summary>
+    public static string MoveToBinTitle => Loc.Get("MoveToBinTitle");
+
+    /// <summary>You can restore them from the Recycle Bin if you change your mind. The space is freed once you empty it.</summary>
+    public static string MoveToBinWarning => Loc.Get("MoveToBinWarning");
+
+    /// <summary>Move to Recycle Bin</summary>
+    public static string MoveToBin => Loc.Get("MoveToBin");
+
+    /// <summary>{0} went to the Recycle Bin. Empty it when you're sure, to free that space too.</summary>
+    public static string RecycledMessage => Loc.Get("RecycledMessage");
 }

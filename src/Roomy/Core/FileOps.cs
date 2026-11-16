@@ -108,6 +108,17 @@ public static class FileOps
         return new(freed, ok, failed);
     }
 
+    /// <summary>Sends a single file to the Recycle Bin, with the same guards as <see cref="Delete"/>.</summary>
+    public static DeleteResult Recycle(string path, TimeSpan? minAge)
+    {
+        if (!File.Exists(path)) return default;
+        Guard(path);
+        var fi = new FileInfo(path);
+        if (fi.LastWriteTimeUtc > Cutoff(minAge) || (fi.Attributes & FileAttributes.ReparsePoint) != 0) return default;
+        long len = fi.Length;
+        return Native.SendToRecycleBin(path) && !File.Exists(path) ? new(len, 1, 0) : new(0, 0, 1);
+    }
+
     static bool TryDeleteFile(string p)
     {
         try

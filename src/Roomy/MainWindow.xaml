@@ -567,6 +567,8 @@
                             </StackPanel>
                         </Border>
 
+                        <TextBlock Text="{Binding RecycledText}" FontSize="12.5" Foreground="{StaticResource FaintBrush}" TextWrapping="Wrap"
+                                   TextAlignment="Center" Margin="0,14,0,0" Visibility="{Binding HasRecycled, Converter={StaticResource VisIf}}" />
                         <TextBlock Text="{Binding SkippedText}" FontSize="12.5" Foreground="{StaticResource FaintBrush}" TextWrapping="Wrap"
                                    TextAlignment="Center" Margin="0,14,0,0" Visibility="{Binding HasSkipped, Converter={StaticResource VisIf}}" />
 
