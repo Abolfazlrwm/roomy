@@ -1,6 +1,6 @@
 ; Roomy installer (Inno Setup 6). Per-user install, no admin prompt.
 #ifndef AppVersion
-  #define AppVersion "0.1.3"
+  #define AppVersion "0.1.4"
 #endif
 
 [Setup]

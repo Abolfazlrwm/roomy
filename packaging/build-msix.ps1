@@ -16,7 +16,7 @@ param(
   [Parameter(Mandatory)] [string] $Publisher,
   [Parameter(Mandatory)] [string] $PublisherDisplayName,
   [string] $DisplayName = "Roomy",
-  [string] $Version = "0.1.3"
+  [string] $Version = "0.1.4"
 )
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
