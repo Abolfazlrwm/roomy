@@ -72,7 +72,7 @@ Preferences, reminder cooldowns and snooze times stay in `%LOCALAPPDATA%\Roomy\s
 - **Never follows junctions or symlinks**, so a link can't point the cleaner somewhere unexpected.
 - **In-use files are skipped**, never forced.
 - **"Your call" items start unticked** and ask for confirmation before anything is removed.
-- **No network access at all.** No telemetry, no accounts, no updates phoning home.
+- **No network access at all.** No telemetry, no accounts, no updates phoning home. If Roomy ever crashes, it writes the error to `%LOCALAPPDATA%\Roomy\crash.log` on your PC so you can attach it to an issue. It's never sent anywhere.
 - **Your choice of permanent or Recycle Bin.** By default, cleaned files are deleted for good, and Roomy says so before you confirm. Turn on *Send files from Downloads to the Recycle Bin* in Settings to be able to restore old installers and downloads. If a file is too big for the bin, Windows asks before deleting it.
 - **No admin needed.** Roomy runs as a normal user. Only the *Windows leftovers* category (Windows Update downloads, Delivery Optimization cache, the Windows temp folder, system crash dumps) needs admin, and Roomy only asks if you click *Restart as admin*. Without it, that category is skipped.
 - **Background checks never delete.** They only read free space and cache sizes, then show a reminder. Every cleanup is something you start.

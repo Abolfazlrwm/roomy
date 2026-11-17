@@ -12,10 +12,29 @@ public partial class App : Application
     DesktopController? _desktop;
     NotificationService? _activationRelay;
 
+    public App() => CrashLog.Install();
+
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        var args = e.Args;
+        try
+        {
+            await StartAsync(e.Args);
+        }
+        catch (Exception ex)
+        {
+            // Without this, a failed start only shows Windows' "unknown hard error".
+            CrashLog.Write(ex, "startup");
+            CrashLog.ShowNative(ex, "Roomy couldn't start.");
+            Shutdown(1);
+        }
+    }
+
+    async Task StartAsync(string[] args)
+    {
+#if DEBUG
+        if (Environment.GetEnvironmentVariable("ROOMY_TEST_CRASH") == "startup") throw new InvalidOperationException("Test startup crash");
+#endif
         if (args.Contains("--uninstall"))
         {
             try
@@ -37,6 +56,7 @@ public partial class App : Application
 
         DispatcherUnhandledException += (_, ex) =>
         {
+            CrashLog.Write(ex.Exception, "ui");
             MessageBox.Show(ex.Exception.Message, S.SnagTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
             ex.Handled = true;
         };

@@ -3,6 +3,7 @@
 ## Unreleased
 
 - **Safer cleanup with junctions and symlinks.** Roomy now checks where every file really lives before deleting it, and skips anything reached through a junction, symlink or mount point anywhere in the path, not just inside the cleaned folder. The check and the delete use the same open file handle, so the path can't be swapped in between. Thanks to [@Anchoder](https://github.com/Anchoder) for the detailed report ([#4](https://github.com/krezio/roomy/issues/4)).
+- **Clear message when Roomy can't start.** Instead of Windows' "unknown hard error", Roomy now says what went wrong and saves the details to `%LOCALAPPDATA%\Roomy\crash.log`, so problems can be reported and fixed. The file stays on your PC.
 
 ## 0.1.3
 
