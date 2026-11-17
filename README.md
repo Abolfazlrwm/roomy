@@ -11,6 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/krezio/roomy/releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/krezio/roomy?label=download&color=f4f4f5&labelColor=18181b"></a>
+  <a href="https://github.com/krezio/roomy/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/krezio/roomy/total?color=f4f4f5&labelColor=18181b"></a>
   <a href="https://github.com/krezio/roomy/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/krezio/roomy?style=flat&color=f4f4f5&labelColor=18181b"></a>
   <img alt="Windows 10 & 11" src="https://img.shields.io/badge/Windows-10%20%7C%2011-f4f4f5?labelColor=18181b">
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-f4f4f5?labelColor=18181b">
