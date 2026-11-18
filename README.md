@@ -152,6 +152,8 @@ dotnet run --project tests/Roomy.DesktopChecks -c Release -- --notifications
 
 Know a cache folder Roomy should clean, or found something it gets wrong? [Open an issue](https://github.com/krezio/roomy/issues) or send a pull request. And if Roomy helped you, a ⭐ really does help others find it.
 
+**Also from krezio:** [Framecalm](https://github.com/krezio/framecalm), a free Windows optimizer for games that shows exactly what it changes and can undo all of it.
+
 ## License
 
 [MIT](LICENSE) © 2026 krezio

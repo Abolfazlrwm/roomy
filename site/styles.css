@@ -172,6 +172,9 @@ details p { color: var(--muted); margin: 0 0 18px; }
 
 .footer { max-width: var(--max); margin: 60px auto 0; padding: 24px 16px 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); color: var(--faint); font-size: 14px; }
 .footer a { color: var(--muted); text-decoration: none; }
+.also { max-width: 520px; margin: 36px auto 0; color: var(--faint); font-size: 14px; line-height: 1.6; }
+.also a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-2); }
+.also a:hover { color: var(--text); text-decoration-color: var(--muted); }
 .footer a:hover { color: var(--text); }
 
 /* gentle entrance, no fireworks */
