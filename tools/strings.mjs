@@ -20,12 +20,17 @@ const catalogues = [
   { file: 'Strings.zh-Hans.resx', culture: 'zh-Hans', field: 'zh-Hans' },
 ];
 
+// English is required. A missing translation falls back to English (the app does the same at
+// runtime), so new text can land before every language catches up; it is listed as a warning.
+const missing = {};
 for (const e of strings) {
-  for (const { field, culture } of catalogues) {
-    if (typeof e[field] !== 'string' || e[field].length === 0)
-      throw new Error(`strings.json: "${e.key}" is missing its "${field}" value (${culture || 'neutral'})`);
+  if (typeof e.en !== 'string' || e.en.length === 0) throw new Error(`strings.json: "${e.key}" has no English text`);
+  for (const { field } of catalogues.slice(1)) {
+    if (typeof e[field] !== 'string' || e[field].length === 0) (missing[field] ??= []).push(e.key);
   }
 }
+for (const [field, keys] of Object.entries(missing))
+  console.warn(`warning: ${keys.length} string(s) not translated to ${field} yet, using English: ${keys.join(', ')}`);
 
 const xmlEscape = (s) => s
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -38,7 +43,7 @@ const resx = (entries, field) => `<?xml version="1.0" encoding="utf-8"?>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
 ${entries.map((e) => `  <data name="${e.key}" xml:space="preserve">
-    <value>${xmlEscape(e[field])}</value>
+    <value>${xmlEscape(e[field] || e.en)}</value>
   </data>`).join('\n')}
 </root>
 `;

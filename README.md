@@ -82,7 +82,7 @@ Found something that looks unsafe? Please [open an issue](https://github.com/kre
 
 ## Languages
 
-Roomy follows your Windows display language. It speaks **English** and **Русский** (thanks to [@KVGeorgich](https://github.com/KVGeorgich)). Want Roomy in your language? See [src/Roomy/Localization](src/Roomy/Localization/README.md). You only need to translate one file.
+Roomy follows your Windows display language. It speaks **English**, **Русский** (thanks to [@KVGeorgich](https://github.com/KVGeorgich)) and **简体中文** (thanks to [@amaoo](https://github.com/amaoo)). Want Roomy in your language? See [src/Roomy/Localization](src/Roomy/Localization/README.md). You only add your language to one file.
 
 ## Install
 

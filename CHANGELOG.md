@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Simplified Chinese.** Roomy now speaks 简体中文 on Simplified Chinese Windows. Thanks to [@amaoo](https://github.com/amaoo) ([#5](https://github.com/krezio/roomy/pull/5)).
+
 ## 0.1.4
 
 - **Safer cleanup with junctions and symlinks.** Roomy now checks where every file really lives before deleting it, and skips anything reached through a junction, symlink or mount point anywhere in the path, not just inside the cleaned folder. The check and the delete use the same open file handle, so the path can't be swapped in between. Thanks to [@Anchoder](https://github.com/Anchoder) for the detailed report ([#4](https://github.com/krezio/roomy/issues/4)).
