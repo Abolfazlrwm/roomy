@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.5
 
 - **Hibernation file.** Roomy now shows the hidden `hiberfil.sys`, often 6–16 GB, and can turn hibernation off through Windows' own `powercfg` with one admin prompt. Fast Startup turns off with it, and you can turn it back on from Settings at any time.
 - **Game launcher caches.** Roomy now clears the built-in browser caches of Battle.net, the EA app, Ubisoft Connect, Riot Client and GOG Galaxy. Only Chromium cache folders are touched, never logins or game files.

@@ -9,7 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Roomy</RootNamespace>
     <AssemblyName>Roomy</AssemblyName>
-    <Version>0.1.4</Version>
+    <Version>0.1.5</Version>
     <Product>Roomy</Product>
     <Company>krezio</Company>
     <Authors>krezio</Authors>
