@@ -64,10 +64,9 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.05; }
 .hero h1 { font-size: clamp(36px, 7vw, 84px); font-weight: 800; text-wrap: balance; }
 .lede { max-width: 600px; margin: 22px auto 30px; font-size: 18.5px; color: var(--muted); }
 .ctas { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
-.star-wrap { display: flex; flex-direction: column; align-items: center; gap: 7px; }
-.dl-note { color: var(--faint); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.dl-note { color: var(--faint); font-size: 13px; margin: 12px 0 0; font-variant-numeric: tabular-nums; }
 .fine { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
-.store-badge { display: inline-block; margin-top: 18px; border-radius: 8px; transition: opacity .2s; }
+.store-badge { display: inline-block; margin-top: 14px; border-radius: 8px; transition: opacity .2s; }
 .store-badge:hover { opacity: .85; }
 .store-badge img { display: block; height: 52px; width: auto; }
 
@@ -192,8 +191,7 @@ details p { color: var(--muted); margin: 0 0 18px; }
 @media (max-width: 600px) {
   .hero { padding-top: 64px; }
   .lede { font-size: 16.5px; }
-  .ctas .btn, .star-wrap { flex: 1 1 100%; }
-  .star-wrap .btn { width: 100%; }
+  .ctas .btn { flex: 1 1 100%; }
   .video-frame { padding: 5px; border-radius: 14px; margin-top: 44px; }
   .video-frame video { border-radius: 10px; }
   .section { padding-top: 90px; }
