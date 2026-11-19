@@ -685,4 +685,43 @@
   <data name="RecycledMessage" xml:space="preserve">
     <value>{0} 已移入回收站。确定无需保留后请清空回收站，以释放这部分空间。</value>
   </data>
+  <data name="StepHibernation" xml:space="preserve">
+    <value>休眠文件</value>
+  </data>
+  <data name="CatHibernation" xml:space="preserve">
+    <value>休眠文件</value>
+  </data>
+  <data name="CatHibernationDesc" xml:space="preserve">
+    <value>Windows 为休眠和快速启动保留的隐藏文件，大小与内存相当。如果你从不使用休眠，关闭它即可收回这部分空间。</value>
+  </data>
+  <data name="TurnOffHibernation" xml:space="preserve">
+    <value>关闭休眠</value>
+  </data>
+  <data name="HibernationHint" xml:space="preserve">
+    <value>需要一次管理员权限。快速启动也会随之关闭。可随时在设置中重新开启。</value>
+  </data>
+  <data name="HibernationConfirmTitle" xml:space="preserve">
+    <value>要关闭休眠吗？</value>
+  </data>
+  <data name="HibernationConfirmBody" xml:space="preserve">
+    <value>Windows 将删除休眠文件并释放 {0}。在 Roomy 设置中重新开启之前，休眠和快速启动将不可用。其他设置不受影响。</value>
+  </data>
+  <data name="HibernationOff" xml:space="preserve">
+    <value>已关闭休眠，释放了 {0}。可在设置中重新开启。</value>
+  </data>
+  <data name="HibernationUnchanged" xml:space="preserve">
+    <value>休眠设置未更改。</value>
+  </data>
+  <data name="SettingsHibernation" xml:space="preserve">
+    <value>休眠已关闭</value>
+  </data>
+  <data name="HibernationIsOffHint" xml:space="preserve">
+    <value>休眠和快速启动目前不可用。重新开启休眠后，将占用与内存大小相当的空间。</value>
+  </data>
+  <data name="TurnOnHibernation" xml:space="preserve">
+    <value>重新开启休眠</value>
+  </data>
+  <data name="HibernationOnAgain" xml:space="preserve">
+    <value>休眠已重新开启。</value>
+  </data>
 </root>

@@ -99,6 +99,14 @@
                         <TextBlock Style="{StaticResource Hint}" Text="{x:Static loc:S.RecycleDownloadsHint}" />
                     </StackPanel>
                 </Border>
+                <Border x:Name="HibernationCard" Style="{StaticResource Card}" Padding="18" Margin="0,0,0,14" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="{x:Static loc:S.SettingsHibernation}" FontSize="14" FontWeight="SemiBold" />
+                        <TextBlock Style="{StaticResource Hint}" Margin="0,6,0,0" Text="{x:Static loc:S.HibernationIsOffHint}" />
+                        <Button x:Name="HibernationButton" Content="{x:Static loc:S.TurnOnHibernation}" Style="{StaticResource SecondaryButton}" FontSize="12" Padding="12,7"
+                                HorizontalAlignment="Left" Margin="0,12,0,0" Click="TurnOnHibernation_Click" />
+                    </StackPanel>
+                </Border>
                 <Border Style="{StaticResource Card}" Padding="18" Margin="0,0,0,14">
                     <StackPanel>
                         <CheckBox x:Name="BackgroundCheck" Content="{x:Static loc:S.KeepInTray}" Style="{StaticResource SettingCheck}" Click="Background_Click" />

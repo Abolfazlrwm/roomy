@@ -685,4 +685,43 @@
   <data name="RecycledMessage" xml:space="preserve">
     <value>{0} went to the Recycle Bin. Empty it when you're sure, to free that space too.</value>
   </data>
+  <data name="StepHibernation" xml:space="preserve">
+    <value>Hibernation file</value>
+  </data>
+  <data name="CatHibernation" xml:space="preserve">
+    <value>Hibernation file</value>
+  </data>
+  <data name="CatHibernationDesc" xml:space="preserve">
+    <value>A hidden file as big as your memory that Windows keeps for hibernation and Fast Startup. If you never hibernate, turning it off gives the space back.</value>
+  </data>
+  <data name="TurnOffHibernation" xml:space="preserve">
+    <value>Turn off hibernation</value>
+  </data>
+  <data name="HibernationHint" xml:space="preserve">
+    <value>Asks for admin once. Fast Startup turns off too. You can turn it back on in Settings.</value>
+  </data>
+  <data name="HibernationConfirmTitle" xml:space="preserve">
+    <value>Turn off hibernation?</value>
+  </data>
+  <data name="HibernationConfirmBody" xml:space="preserve">
+    <value>Windows will remove the hibernation file and free {0}. Hibernate and Fast Startup won't be available until you turn it back on in Roomy's Settings. Nothing else changes.</value>
+  </data>
+  <data name="HibernationOff" xml:space="preserve">
+    <value>Hibernation is off. Freed {0}. You can turn it back on in Settings.</value>
+  </data>
+  <data name="HibernationUnchanged" xml:space="preserve">
+    <value>Hibernation wasn't changed.</value>
+  </data>
+  <data name="SettingsHibernation" xml:space="preserve">
+    <value>Hibernation is off</value>
+  </data>
+  <data name="HibernationIsOffHint" xml:space="preserve">
+    <value>Hibernate and Fast Startup aren't available. Turning hibernation back on uses about as much space as your memory.</value>
+  </data>
+  <data name="TurnOnHibernation" xml:space="preserve">
+    <value>Turn hibernation back on</value>
+  </data>
+  <data name="HibernationOnAgain" xml:space="preserve">
+    <value>Hibernation is back on.</value>
+  </data>
 </root>

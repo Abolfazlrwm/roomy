@@ -687,4 +687,43 @@ public static class S
 
     /// <summary>{0} went to the Recycle Bin. Empty it when you're sure, to free that space too.</summary>
     public static string RecycledMessage => Loc.Get("RecycledMessage");
+
+    /// <summary>Hibernation file</summary>
+    public static string StepHibernation => Loc.Get("StepHibernation");
+
+    /// <summary>Hibernation file</summary>
+    public static string CatHibernation => Loc.Get("CatHibernation");
+
+    /// <summary>A hidden file as big as your memory that Windows keeps for hibernation and Fast Startup. If you never hibernate, turning it off gives the space back.</summary>
+    public static string CatHibernationDesc => Loc.Get("CatHibernationDesc");
+
+    /// <summary>Turn off hibernation</summary>
+    public static string TurnOffHibernation => Loc.Get("TurnOffHibernation");
+
+    /// <summary>Asks for admin once. Fast Startup turns off too. You can turn it back on in Settings.</summary>
+    public static string HibernationHint => Loc.Get("HibernationHint");
+
+    /// <summary>Turn off hibernation?</summary>
+    public static string HibernationConfirmTitle => Loc.Get("HibernationConfirmTitle");
+
+    /// <summary>Windows will remove the hibernation file and free {0}. Hibernate and Fast Startup won't be available until you turn it back on in Roomy's Settings. Nothing else changes.</summary>
+    public static string HibernationConfirmBody => Loc.Get("HibernationConfirmBody");
+
+    /// <summary>Hibernation is off. Freed {0}. You can turn it back on in Settings.</summary>
+    public static string HibernationOff => Loc.Get("HibernationOff");
+
+    /// <summary>Hibernation wasn't changed.</summary>
+    public static string HibernationUnchanged => Loc.Get("HibernationUnchanged");
+
+    /// <summary>Hibernation is off</summary>
+    public static string SettingsHibernation => Loc.Get("SettingsHibernation");
+
+    /// <summary>Hibernate and Fast Startup aren't available. Turning hibernation back on uses about as much space as your memory.</summary>
+    public static string HibernationIsOffHint => Loc.Get("HibernationIsOffHint");
+
+    /// <summary>Turn hibernation back on</summary>
+    public static string TurnOnHibernation => Loc.Get("TurnOnHibernation");
+
+    /// <summary>Hibernation is back on.</summary>
+    public static string HibernationOnAgain => Loc.Get("HibernationOnAgain");
 }

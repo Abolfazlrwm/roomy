@@ -23,6 +23,10 @@
 </p>
 
 <p align="center">
+  <a href="https://apps.microsoft.com/detail/9P983BK0XVMC?mode=direct"><img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" alt="Get it from Microsoft"></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/krezio/roomy/releases/latest/download/Roomy-Setup.exe"><b>⬇ Download for Windows</b></a> &nbsp;·&nbsp;
   <a href="https://roomy.krezio.xyz">Website &amp; live demo</a> &nbsp;·&nbsp;
   <a href="https://roomy.krezio.xyz/guides/">Guides</a>
@@ -39,13 +43,14 @@ Most cleaners stick to temp files and the Recycle Bin, and Windows' own tools mi
 | | Category | Default |
 |---|---|---|
 | ♻️ | Windows Update leftovers, Delivery Optimization, Windows temp (needs admin) | ✅ Safe |
-| 🧩 | App caches: Discord, Spotify, VS Code, Slack, Teams, Steam web, Epic Games Launcher, npm, pip, Yarn, NuGet | ✅ Safe |
+| 🧩 | App caches: Discord, Spotify, VS Code, Slack, Teams, npm, pip, Yarn, NuGet, and game launchers (Steam, Epic, Battle.net, EA app, Ubisoft Connect, Riot Client, GOG Galaxy) | ✅ Safe |
 | 🌐 | Browser caches: Chrome, Edge, Brave, Vivaldi, Firefox, Opera | ✅ Safe |
 | 🕒 | Temp files (older than a day), crash dumps, error reports, Recycle Bin | ✅ Safe |
 | 🎨 | GPU shader caches (NVIDIA, AMD, Intel, DirectX, Steam) | Safe, unticked |
 | 📦 | Old installers & big untouched downloads | Your call |
 | 🎮 | Steam games you haven't played in 2+ months (uninstalls through Steam) | Your call |
 | 🪟 | `Windows.old` (opens Windows' own cleanup) | Your call |
+| 💤 | The hidden hibernation file, often 6–16 GB (turns hibernation off through Windows, and back on from Settings) | Your call |
 
 Plus a **Space map** that lets you click down through any drive folder by folder and see the biggest files on your PC.
 
@@ -86,7 +91,9 @@ Roomy follows your Windows display language. It speaks **English**, **Русск
 
 ## Install
 
-Grab **Roomy-Setup.exe** (installs per-user, no admin needed) or **Roomy-portable.exe** from [Releases](https://github.com/krezio/roomy/releases/latest). A Microsoft Store version is on the way.
+**Easiest: [get Roomy from the Microsoft Store](https://apps.microsoft.com/detail/9P983BK0XVMC?mode=direct).** No "unknown publisher" warning, and it updates by itself.
+
+Or grab **Roomy-Setup.exe** (installs per-user, no admin needed) or **Roomy-portable.exe** from [Releases](https://github.com/krezio/roomy/releases/latest).
 
 Requires Windows 10 version 2004 or later, or Windows 11.
 

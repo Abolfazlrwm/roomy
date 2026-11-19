@@ -180,9 +180,18 @@ public partial class MainWindow : Window
             await Task.Delay(900);
             Snap(dir, "04-review");
 
-            _vm.ExpandOnly("");
             if (installers != null)
                 foreach (var i in installers.Items) i.IsSelected = false;
+            if (_vm.Categories.FirstOrDefault(c => c.Model.Id == "hibernation") is { } hibernation)
+            {
+                _vm.ExpandOnly("hibernation");
+                await Task.Delay(300);
+                CleanupScroll.ScrollToVerticalOffset(Math.Max(0, _vm.Categories.IndexOf(hibernation) * 104 - 20));
+                await Task.Delay(900);
+                Snap(dir, "04b-hibernation");
+            }
+
+            _vm.ExpandOnly("");
             CleanupScroll.ScrollToTop();
 
             _vm.IsSpaceTab = true;

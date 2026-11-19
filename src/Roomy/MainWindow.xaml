@@ -123,6 +123,18 @@
                                            Foreground="{StaticResource FaintBrush}" FontSize="12" VerticalAlignment="Center"
                                            Margin="14,0,0,0" TextWrapping="Wrap" />
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="38,6,0,6"
+                                        Visibility="{Binding IsHibernation, Converter={StaticResource VisIf}}">
+                                <Button Style="{StaticResource SecondaryButton}" Padding="14,8" Command="{Binding TurnOffHibernationCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE7E8;" Style="{StaticResource Icon}" FontSize="12" />
+                                        <TextBlock Text="{x:Static loc:S.TurnOffHibernation}" Margin="8,0,0,0" />
+                                    </StackPanel>
+                                </Button>
+                                <TextBlock Text="{x:Static loc:S.HibernationHint}"
+                                           Foreground="{StaticResource FaintBrush}" FontSize="12" VerticalAlignment="Center"
+                                           Margin="14,0,0,0" TextWrapping="Wrap" />
+                            </StackPanel>
                             <ItemsControl ItemsSource="{Binding VisibleItems}" ItemTemplate="{StaticResource ItemRowTemplate}"
                                           Visibility="{Binding ShowItemList, Converter={StaticResource VisIf}}" />
                             <TextBlock Text="{Binding HiddenText}" Foreground="{StaticResource FaintBrush}" FontSize="12"

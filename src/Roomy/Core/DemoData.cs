@@ -85,6 +85,9 @@ public static class DemoData
             case "winold":
                 A("Windows.old", Gb(21.4), "");
                 break;
+            case "hibernation":
+                A("hiberfil.sys", Gb(12.7), "");
+                break;
         }
         return c;
     }

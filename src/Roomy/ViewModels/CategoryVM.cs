@@ -24,6 +24,7 @@ public sealed class CategoryVM : ObservableObject
         }
         ToggleExpandCommand = new RelayCommand(() => IsExpanded = !IsExpanded);
         OpenSettingsCommand = new RelayCommand(() => Shell.Open("ms-settings:storagesense"));
+        TurnOffHibernationCommand = new RelayCommand(() => _ = _owner.TurnOffHibernationAsync(this));
     }
 
     public CleanupCategory Model { get; }
@@ -42,11 +43,12 @@ public sealed class CategoryVM : ObservableObject
     public bool IsBlocked => Model.Blocked;
     public bool IsSteam => Model.Action == CleanAction.SteamUninstall;
     public bool IsSettings => Model.Action == CleanAction.OpenSettings;
+    public bool IsHibernation => Model.Action == CleanAction.TurnOffHibernation;
     public bool CanSelect => !Model.Blocked && Model.Size > 0 &&
                              Model.Action is CleanAction.Delete or CleanAction.EmptyRecycleBin;
     public bool ItemsSelectable => CanSelect && Items.Count > 1;
     public bool ShowItemList => Model.ShowItems && Items.Count > 0;
-    public bool HasDetails => ShowItemList || IsSettings || IsBlocked;
+    public bool HasDetails => ShowItemList || IsSettings || IsHibernation || IsBlocked;
 
     public long Size => Model.Size;
     public string SizeText => Model.Blocked ? "N/A" : Format.Bytes(Size);
@@ -92,6 +94,7 @@ public sealed class CategoryVM : ObservableObject
 
     public ICommand ToggleExpandCommand { get; }
     public ICommand OpenSettingsCommand { get; }
+    public ICommand TurnOffHibernationCommand { get; }
     public ICommand RestartAdminCommand => _owner.RestartAdminCommand;
 }
 

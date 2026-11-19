@@ -53,6 +53,7 @@ public static class Scanner
         new("downloads", S.StepDownloads, BigDownloads),
         new("games", S.StepGames, Games),
         new("winold", S.StepWinOld, WindowsOld),
+        new("hibernation", S.StepHibernation, HibernationFile),
     ];
 
     // ---------- helpers ----------
@@ -210,13 +211,21 @@ public static class Scanner
         Add(cat, Item(S.ItemVsCode, null, c.Token,
             Bits(Env.R("Code")).Append(Env.R("Code", "CachedData")).Append(Env.R("Code", "CachedExtensionVSIXs"))));
         Add(cat, Item(S.ItemSteamBrowser, null, c.Token, [Env.L("Steam", "htmlcache")]));
+        // Game launchers embed a Chromium browser; only its cache folders are cleaned, never logins or game data.
+        Add(cat, Item("Battle.net", null, c.Token, CacheFinder.ChromiumCachesUnder(Env.L("Battle.net"))));
+        Add(cat, Item("EA app", null, c.Token, CacheFinder.ChromiumCachesUnder(Env.L("Electronic Arts", "EA Desktop"))));
+        Add(cat, Item("Ubisoft Connect", null, c.Token, CacheFinder.ChromiumCachesUnder(Env.L("Ubisoft Game Launcher"))));
+        Add(cat, Item("Riot Client", null, c.Token, CacheFinder.ChromiumCachesUnder(Env.L("Riot Games", "Riot Client"))));
+        Add(cat, Item("GOG Galaxy", null, c.Token, CacheFinder.ChromiumCachesUnder(Env.L("GOG.com", "Galaxy"))));
         Add(cat, Item(S.ItemNpm, null, c.Token, [Env.L("npm-cache", "_cacache")]));
         Add(cat, Item(S.ItemPip, null, c.Token, [Env.L("pip", "Cache")]));
         Add(cat, Item(S.ItemYarn, null, c.Token, [Env.L("Yarn", "Cache")]));
         Add(cat, Item(S.ItemNuget, null, c.Token, [Env.L("NuGet", "v3-cache")]));
         if (cat.Items.Count > 0)
             cat.Note = RunningNote(Running(("Discord", S.ItemDiscord), ("slack", S.ItemSlack), ("Code", S.ItemVsCode), ("Teams", "Teams"),
-                ("ms-teams", "Teams"), ("Spotify", "Spotify"), ("EpicGamesLauncher", "Epic Games Launcher")));
+                ("ms-teams", "Teams"), ("Spotify", "Spotify"), ("EpicGamesLauncher", "Epic Games Launcher"),
+                ("Battle.net", "Battle.net"), ("EADesktop", "EA app"), ("upc", "Ubisoft Connect"),
+                ("RiotClientServices", "Riot Client"), ("GalaxyClient", "GOG Galaxy")));
         return Sorted(cat);
     }
 
@@ -324,6 +333,15 @@ public static class Scanner
             });
         }
         return Sorted(cat);
+    }
+
+    static CleanupCategory? HibernationFile(ScanContext c)
+    {
+        var size = Hibernation.FileSize();
+        if (size <= 0) return null;
+        var cat = Catalog.Create("hibernation");
+        cat.Items.Add(new CleanupItem { Name = "hiberfil.sys", Paths = [Hibernation.FilePath], Size = size });
+        return cat;
     }
 
     static CleanupCategory? WindowsOld(ScanContext c)

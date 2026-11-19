@@ -685,4 +685,43 @@
   <data name="RecycledMessage" xml:space="preserve">
     <value>{0} перемещено в корзину. Очистите её, когда будете уверены, чтобы освободить и это место.</value>
   </data>
+  <data name="StepHibernation" xml:space="preserve">
+    <value>Файл гибернации</value>
+  </data>
+  <data name="CatHibernation" xml:space="preserve">
+    <value>Файл гибернации</value>
+  </data>
+  <data name="CatHibernationDesc" xml:space="preserve">
+    <value>Скрытый файл размером с оперативную память, который Windows хранит для гибернации и быстрого запуска. Если вы не пользуетесь гибернацией, её можно отключить и вернуть это место.</value>
+  </data>
+  <data name="TurnOffHibernation" xml:space="preserve">
+    <value>Отключить гибернацию</value>
+  </data>
+  <data name="HibernationHint" xml:space="preserve">
+    <value>Один раз запросит права администратора. Быстрый запуск тоже отключится. Включить обратно можно в настройках.</value>
+  </data>
+  <data name="HibernationConfirmTitle" xml:space="preserve">
+    <value>Отключить гибернацию?</value>
+  </data>
+  <data name="HibernationConfirmBody" xml:space="preserve">
+    <value>Windows удалит файл гибернации и освободит {0}. Гибернация и быстрый запуск будут недоступны, пока вы не включите их снова в настройках Roomy. Больше ничего не изменится.</value>
+  </data>
+  <data name="HibernationOff" xml:space="preserve">
+    <value>Гибернация отключена. Освобождено {0}. Включить снова можно в настройках.</value>
+  </data>
+  <data name="HibernationUnchanged" xml:space="preserve">
+    <value>Гибернация не изменена.</value>
+  </data>
+  <data name="SettingsHibernation" xml:space="preserve">
+    <value>Гибернация отключена</value>
+  </data>
+  <data name="HibernationIsOffHint" xml:space="preserve">
+    <value>Гибернация и быстрый запуск недоступны. Если включить гибернацию снова, файл займёт примерно столько же места, сколько оперативная память.</value>
+  </data>
+  <data name="TurnOnHibernation" xml:space="preserve">
+    <value>Включить гибернацию</value>
+  </data>
+  <data name="HibernationOnAgain" xml:space="preserve">
+    <value>Гибернация снова включена.</value>
+  </data>
 </root>

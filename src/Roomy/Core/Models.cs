@@ -12,6 +12,8 @@ public enum CleanAction
     SteamUninstall,
     /// <summary>Only Windows can remove it safely, so we open Settings.</summary>
     OpenSettings,
+    /// <summary>Windows' powercfg turns hibernation off, which removes hiberfil.sys.</summary>
+    TurnOffHibernation,
 }
 
 public sealed class CleanupItem
@@ -58,6 +60,7 @@ public static class G
     public const string Download = "";
     public const string Game = "";
     public const string History = "";
+    public const string Power = "";
     public const string Folder = "";
     public const string Document = "";
     public const string Shield = "";
@@ -135,6 +138,12 @@ public static class Catalog
             Id = id, Title = S.CatWinOld, Glyph = G.History, Safety = Safety.Review,
             Description = S.CatWinOldDesc,
             Action = CleanAction.OpenSettings, ShowItems = false,
+        },
+        "hibernation" => new CleanupCategory
+        {
+            Id = id, Title = S.CatHibernation, Glyph = G.Power, Safety = Safety.Review,
+            Description = S.CatHibernationDesc,
+            Action = CleanAction.TurnOffHibernation, ShowItems = false,
         },
         _ => throw new ArgumentOutOfRangeException(nameof(id), id, S.UnknownCategory),
     };

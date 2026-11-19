@@ -343,6 +343,32 @@ public sealed class MainVM : ObservableObject
         return new CleanResult(total, 0, 48_211);
     }
 
+    /// <summary>Asks first, then has Windows turn hibernation off (which removes hiberfil.sys).</summary>
+    internal async Task TurnOffHibernationAsync(CategoryVM category)
+    {
+        if (_busy) return;
+        var size = category.Size;
+        var ok = await ConfirmAsync(S.HibernationConfirmTitle, Loc.Format("HibernationConfirmBody", Format.Bytes(size)), S.TurnOffHibernation);
+        if (!ok) return;
+
+        _busy = true;
+        try
+        {
+            bool done = IsDemo || await Hibernation.SetAsync(false);
+            if (!IsDemo) done = done && !Hibernation.IsOn;
+            if (!done) { ShowToast(S.HibernationUnchanged); return; }
+
+            Categories.Remove(category);
+            RefreshDrives();
+            Raise(nameof(ReviewTotal));
+            Raise(nameof(ReviewSummary));
+            Raise(nameof(NothingFound));
+            Recalc();
+            ShowToast(Loc.Format("HibernationOff", Format.Bytes(size)));
+        }
+        finally { _busy = false; }
+    }
+
     void RestartAsAdmin()
     {
         if (IsDemo) { ShowToast(S.AdminButtonHint); return; }

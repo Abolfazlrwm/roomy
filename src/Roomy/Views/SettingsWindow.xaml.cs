@@ -26,6 +26,7 @@ public partial class SettingsWindow : Window
         LowSpaceCheck.IsChecked = p.LowSpaceAlerts;
         WeeklyCheck.IsChecked = p.WeeklyChecks;
         RecycleCheck.IsChecked = p.RecycleDownloads;
+        if (!desktop.IsDemo && !Hibernation.IsOn) HibernationCard.Visibility = Visibility.Visible;
         ThresholdBox.Text = p.LowSpaceGB.ToString(CultureInfo.InvariantCulture);
         IntervalBox.SelectedValue = p.CheckEveryMinutes.ToString(CultureInfo.InvariantCulture);
         _snoozedUntil = p.SnoozedUntil;
@@ -153,6 +154,15 @@ public partial class SettingsWindow : Window
             SaveButton.IsEnabled = _desktop.CanConfigure;
             Options.IsEnabled = _desktop.CanConfigure;
         }
+    }
+
+    async void TurnOnHibernation_Click(object sender, RoutedEventArgs e)
+    {
+        HibernationButton.IsEnabled = false;
+        var ok = await Hibernation.SetAsync(true) && Hibernation.IsOn;
+        StatusText.Text = ok ? S.HibernationOnAgain : S.HibernationUnchanged;
+        if (ok) HibernationCard.Visibility = Visibility.Collapsed;
+        else HibernationButton.IsEnabled = true;
     }
 
     void StartupSettings_Click(object sender, RoutedEventArgs e) => Shell.Open("ms-settings:startupapps");
