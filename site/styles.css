@@ -67,6 +67,9 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.05; }
 .star-wrap { display: flex; flex-direction: column; align-items: center; gap: 7px; }
 .dl-note { color: var(--faint); font-size: 12.5px; font-variant-numeric: tabular-nums; }
 .fine { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
+.store-badge { display: inline-block; margin-top: 18px; border-radius: 8px; transition: opacity .2s; }
+.store-badge:hover { opacity: .85; }
+.store-badge img { display: block; height: 52px; width: auto; }
 
 .video-frame {
   position: relative; margin: 64px auto 0; max-width: 1040px;
