@@ -112,10 +112,26 @@ public static class FileOps
         return new(freed, ok, failed);
     }
 
-    /// <summary>Sends a single file to the Recycle Bin, with the same guards as <see cref="Delete"/>.</summary>
+    /// <summary>Removes a folder once it's empty (after its contents were cleaned). Never removes protected folders.</summary>
+    public static void RemoveIfEmpty(string path)
+    {
+        if (SafeFs.TrustedPath(path) is not { } real || !Directory.Exists(real)) return;
+        try { Guard(real); } catch { return; }
+        SafeFs.Delete(real, real); // only succeeds if the folder is empty
+    }
+
+    /// <summary>Sends a file, or a whole folder, to the Recycle Bin, with the same guards as <see cref="Delete"/>.</summary>
     public static DeleteResult Recycle(string path, TimeSpan? minAge)
     {
-        if (SafeFs.TrustedPath(path) is not { } real || !File.Exists(real)) return default;
+        if (SafeFs.TrustedPath(path) is not { } real) return default;
+        if (Directory.Exists(real))
+        {
+            Guard(path);
+            Guard(real);
+            var (bytes, count) = Measure(real, null);
+            return Native.SendToRecycleBin(real) && !Directory.Exists(real) ? new(bytes, count, 0) : new(0, 0, 1);
+        }
+        if (!File.Exists(real)) return default;
         Guard(path);
         Guard(real);
         var fi = new FileInfo(real);

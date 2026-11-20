@@ -54,6 +54,7 @@ public static class Scanner
         new("games", S.StepGames, Games),
         new("winold", S.StepWinOld, WindowsOld),
         new("hibernation", S.StepHibernation, HibernationFile),
+        new("leftovers", S.StepLeftovers, Leftovers),
     ];
 
     // ---------- helpers ----------
@@ -333,6 +334,20 @@ public static class Scanner
             });
         }
         return Sorted(cat);
+    }
+
+    static CleanupCategory? Leftovers(ScanContext c)
+    {
+        var found = LeftoverFinder.Find(LeftoverFinder.DefaultRoots(), LeftoverFinder.InstalledNames(), DateTime.UtcNow, c.Token);
+        if (found.Count == 0) return null;
+        var cat = Catalog.Create("leftovers");
+        foreach (var l in found)
+            cat.Items.Add(new CleanupItem
+            {
+                Name = Path.GetFileName(l.Path), Paths = [l.Path], Size = l.Size, WholeFolder = true,
+                Detail = Loc.Format("LeftoverDetail", Path.GetFileName(Path.GetDirectoryName(l.Path)!), Format.Ago(l.LastChange)),
+            });
+        return cat;
     }
 
     static CleanupCategory? HibernationFile(ScanContext c)

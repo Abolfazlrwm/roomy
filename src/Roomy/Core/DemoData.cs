@@ -85,6 +85,11 @@ public static class DemoData
             case "winold":
                 A("Windows.old", Gb(21.4), "");
                 break;
+            case "leftovers":
+                c.Items.Add(new CleanupItem { Name = "OldPhotoEditor", Paths = [@"C:\Users\you\AppData\Roaming\OldPhotoEditor"], Size = Gb(1.4), WholeFolder = true, Detail = "In Roaming · untouched for 8 months" });
+                c.Items.Add(new CleanupItem { Name = "TrialVideoTool", Paths = [@"C:\Users\you\AppData\Local\TrialVideoTool"], Size = Mb(612), WholeFolder = true, Detail = "In Local · untouched for a year" });
+                c.Items.Add(new CleanupItem { Name = "GameLauncherX", Paths = [@"C:\Users\you\AppData\Local\GameLauncherX"], Size = Mb(208), WholeFolder = true, Detail = "In Local · untouched for 5 months" });
+                break;
             case "hibernation":
                 A("hiberfil.sys", Gb(12.7), "");
                 break;

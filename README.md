@@ -50,6 +50,7 @@ Most cleaners stick to temp files and the Recycle Bin, and Windows' own tools mi
 | 📦 | Old installers & big untouched downloads | Your call |
 | 🎮 | Steam games you haven't played in 2+ months (uninstalls through Steam) | Your call |
 | 🪟 | `Windows.old` (opens Windows' own cleanup) | Your call |
+| 🗂️ | Leftover AppData folders from apps you've uninstalled (50 MB+, untouched for 3+ months) | Your call |
 | 💤 | The hidden hibernation file, often 6–16 GB (turns hibernation off through Windows, and back on from Settings) | Your call |
 
 Plus a **Space map** that lets you click down through any drive folder by folder and see the biggest files on your PC.

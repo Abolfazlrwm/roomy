@@ -726,4 +726,16 @@ public static class S
 
     /// <summary>Hibernation is back on.</summary>
     public static string HibernationOnAgain => Loc.Get("HibernationOnAgain");
+
+    /// <summary>Uninstalled app leftovers</summary>
+    public static string StepLeftovers => Loc.Get("StepLeftovers");
+
+    /// <summary>Leftovers from uninstalled apps</summary>
+    public static string CatLeftovers => Loc.Get("CatLeftovers");
+
+    /// <summary>Folders in AppData that don't match anything installed and haven't changed in 3+ months. Check each one: some apps leave saves or settings behind on purpose.</summary>
+    public static string CatLeftoversDesc => Loc.Get("CatLeftoversDesc");
+
+    /// <summary>In {0} · untouched for {1}</summary>
+    public static string LeftoverDetail => Loc.Get("LeftoverDetail");
 }

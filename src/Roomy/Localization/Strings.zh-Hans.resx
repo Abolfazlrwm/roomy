@@ -724,4 +724,16 @@
   <data name="HibernationOnAgain" xml:space="preserve">
     <value>休眠已重新开启。</value>
   </data>
+  <data name="StepLeftovers" xml:space="preserve">
+    <value>已卸载应用的残留</value>
+  </data>
+  <data name="CatLeftovers" xml:space="preserve">
+    <value>已卸载应用的残留文件夹</value>
+  </data>
+  <data name="CatLeftoversDesc" xml:space="preserve">
+    <value>AppData 中与任何已安装程序都不匹配、且 3 个月以上未变动的文件夹。请逐一确认：有些应用会特意留下存档或设置。</value>
+  </data>
+  <data name="LeftoverDetail" xml:space="preserve">
+    <value>位于 {0} · {1}未改动</value>
+  </data>
 </root>

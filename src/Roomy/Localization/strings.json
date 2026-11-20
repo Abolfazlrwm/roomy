@@ -1439,6 +1439,30 @@
       "en": "Hibernation is back on.",
       "ru": "Гибернация снова включена.",
       "zh-Hans": "休眠已重新开启。"
+    },
+    {
+      "key": "StepLeftovers",
+      "en": "Uninstalled app leftovers",
+      "ru": "Остатки удалённых программ",
+      "zh-Hans": "已卸载应用的残留"
+    },
+    {
+      "key": "CatLeftovers",
+      "en": "Leftovers from uninstalled apps",
+      "ru": "Остатки удалённых программ",
+      "zh-Hans": "已卸载应用的残留文件夹"
+    },
+    {
+      "key": "CatLeftoversDesc",
+      "en": "Folders in AppData that don't match anything installed and haven't changed in 3+ months. Check each one: some apps leave saves or settings behind on purpose.",
+      "ru": "Папки в AppData, которые не относятся ни к одной установленной программе и не менялись больше 3 месяцев. Проверьте каждую: некоторые программы намеренно оставляют сохранения или настройки.",
+      "zh-Hans": "AppData 中与任何已安装程序都不匹配、且 3 个月以上未变动的文件夹。请逐一确认：有些应用会特意留下存档或设置。"
+    },
+    {
+      "key": "LeftoverDetail",
+      "en": "In {0} · untouched for {1}",
+      "ru": "В {0} · не менялась {1}",
+      "zh-Hans": "位于 {0} · {1}未改动"
     }
   ]
 }

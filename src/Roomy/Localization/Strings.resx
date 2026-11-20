@@ -724,4 +724,16 @@
   <data name="HibernationOnAgain" xml:space="preserve">
     <value>Hibernation is back on.</value>
   </data>
+  <data name="StepLeftovers" xml:space="preserve">
+    <value>Uninstalled app leftovers</value>
+  </data>
+  <data name="CatLeftovers" xml:space="preserve">
+    <value>Leftovers from uninstalled apps</value>
+  </data>
+  <data name="CatLeftoversDesc" xml:space="preserve">
+    <value>Folders in AppData that don't match anything installed and haven't changed in 3+ months. Check each one: some apps leave saves or settings behind on purpose.</value>
+  </data>
+  <data name="LeftoverDetail" xml:space="preserve">
+    <value>In {0} · untouched for {1}</value>
+  </data>
 </root>

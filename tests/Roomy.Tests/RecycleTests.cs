@@ -45,11 +45,21 @@ public sealed class RecycleTests : IDisposable
     }
 
     [Fact]
-    public void RecycleNeverTouchesFolders()
+    public void RecycleMovesAWholeFolderToTheBin()
     {
-        var r = FileOps.Recycle(_folder, null);
-        Assert.Equal(0, r.Files);
-        Assert.True(Directory.Exists(_folder));
+        if (OnCi) return;
+        var dir = Path.Combine(_folder, "LeftoverApp");
+        Directory.CreateDirectory(Path.Combine(dir, "sub"));
+        File.WriteAllBytes(Path.Combine(dir, "sub", "a.dat"), new byte[2048]);
+        var r = FileOps.Recycle(dir, null);
+        Assert.Equal(2048, r.Freed);
+        Assert.False(Directory.Exists(dir));
+    }
+
+    [Fact]
+    public void RecycleRefusesProtectedFolders()
+    {
+        Assert.Throws<InvalidOperationException>(() => FileOps.Recycle(Env.Roaming, null));
     }
 
     [Fact]

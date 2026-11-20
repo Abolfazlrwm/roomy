@@ -49,7 +49,7 @@ public static class Cleaner
                 {
                     try
                     {
-                        if (recycle && item.IsFile)
+                        if (recycle && (item.IsFile || item.WholeFolder))
                         {
                             var r = FileOps.Recycle(p, item.MinAge);
                             recycled += r.Freed;
@@ -62,6 +62,7 @@ public static class Cleaner
                             freed += r.Freed;
                             got += r.Freed;
                             files += r.Files;
+                            if (item.WholeFolder) FileOps.RemoveIfEmpty(p);
                         }
                     }
                     catch (OperationCanceledException) { throw; }

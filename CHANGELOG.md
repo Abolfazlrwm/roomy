@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Leftovers from uninstalled apps.** Roomy now finds folders in AppData that don't match anything installed and haven't changed in 3+ months (50 MB or more). They're always your call and never ticked, and with the Recycle Bin option on, whole folders go to the Recycle Bin. Suggested by Hyperion481 on Reddit.
+
 ## 0.1.5
 
 - **Hibernation file.** Roomy now shows the hidden `hiberfil.sys`, often 6–16 GB, and can turn hibernation off through Windows' own `powercfg` with one admin prompt. Fast Startup turns off with it, and you can turn it back on from Settings at any time.

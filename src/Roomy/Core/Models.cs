@@ -24,6 +24,8 @@ public sealed class CleanupItem
     public long Size { get; set; }
     public int FileCount { get; set; }
     public bool IsFile { get; init; }
+    /// <summary>The folder itself is removed (or recycled), not just its contents.</summary>
+    public bool WholeFolder { get; init; }
     public string? Detail { get; init; }
     /// <summary>Only files older than this are measured and deleted.</summary>
     public TimeSpan? MinAge { get; init; }
@@ -138,6 +140,11 @@ public static class Catalog
             Id = id, Title = S.CatWinOld, Glyph = G.History, Safety = Safety.Review,
             Description = S.CatWinOldDesc,
             Action = CleanAction.OpenSettings, ShowItems = false,
+        },
+        "leftovers" => new CleanupCategory
+        {
+            Id = id, Title = S.CatLeftovers, Glyph = G.Folder, Safety = Safety.Review,
+            Description = S.CatLeftoversDesc,
         },
         "hibernation" => new CleanupCategory
         {

@@ -724,4 +724,16 @@
   <data name="HibernationOnAgain" xml:space="preserve">
     <value>Гибернация снова включена.</value>
   </data>
+  <data name="StepLeftovers" xml:space="preserve">
+    <value>Остатки удалённых программ</value>
+  </data>
+  <data name="CatLeftovers" xml:space="preserve">
+    <value>Остатки удалённых программ</value>
+  </data>
+  <data name="CatLeftoversDesc" xml:space="preserve">
+    <value>Папки в AppData, которые не относятся ни к одной установленной программе и не менялись больше 3 месяцев. Проверьте каждую: некоторые программы намеренно оставляют сохранения или настройки.</value>
+  </data>
+  <data name="LeftoverDetail" xml:space="preserve">
+    <value>В {0} · не менялась {1}</value>
+  </data>
 </root>
