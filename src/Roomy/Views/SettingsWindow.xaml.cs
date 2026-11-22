@@ -18,6 +18,7 @@ public partial class SettingsWindow : Window
     public SettingsWindow(DesktopController desktop)
     {
         InitializeComponent();
+        Controls.FitToScreen.Apply(this);
         var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         VersionText.Text = v is null ? S.AppName : Loc.Format("AppVersion", $"{v.Major}.{v.Minor}.{v.Build}");
         _desktop = desktop;

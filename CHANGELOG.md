@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Fits smaller screens.** The main and Settings windows now shrink to fit the screen, so the Scan button and Save button never end up under the taskbar on laptops with high display scaling. Thanks to [@croupier](https://github.com/croupier) for finding it ([#6](https://github.com/krezio/roomy/pull/6)).
 - **Leftovers from uninstalled apps.** Roomy now finds folders in AppData that don't match anything installed and haven't changed in 3+ months (50 MB or more). They're always your call and never ticked, and with the Recycle Bin option on, whole folders go to the Recycle Bin. Suggested by Hyperion481 on Reddit.
 
 ## 0.1.5

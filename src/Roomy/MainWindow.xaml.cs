@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     public MainWindow(MainVM vm)
     {
         InitializeComponent();
+        Controls.FitToScreen.Apply(this);
         _vm = vm;
         DataContext = vm;
         vm.PropertyChanged += OnVmChanged;
