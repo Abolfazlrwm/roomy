@@ -1463,6 +1463,72 @@
       "en": "In {0} · untouched for {1}",
       "ru": "В {0} · не менялась {1}",
       "zh-Hans": "位于 {0} · {1}未改动"
+    },
+    {
+      "key": "CopyPath",
+      "en": "Copy path",
+      "ru": "Копировать путь",
+      "zh-Hans": "复制路径"
+    },
+    {
+      "key": "PathCopied",
+      "en": "Path copied",
+      "ru": "Путь скопирован",
+      "zh-Hans": "已复制路径"
+    },
+    {
+      "key": "OpenThisFolder",
+      "en": "Open this folder in File Explorer",
+      "ru": "Открыть эту папку в Проводнике",
+      "zh-Hans": "在文件资源管理器中打开此文件夹"
+    },
+    {
+      "key": "CopyThisPath",
+      "en": "Copy this folder's path",
+      "ru": "Копировать путь к этой папке",
+      "zh-Hans": "复制此文件夹的路径"
+    },
+    {
+      "key": "ExportReport",
+      "en": "Export report",
+      "ru": "Экспорт отчёта",
+      "zh-Hans": "导出报告"
+    },
+    {
+      "key": "ExportReportHint",
+      "en": "Save a text list of the biggest folders and files, with full paths",
+      "ru": "Сохранить текстовый список самых крупных папок и файлов с полными путями",
+      "zh-Hans": "将最大的文件夹和文件（含完整路径）保存为文本列表"
+    },
+    {
+      "key": "ReportSaved",
+      "en": "Report saved",
+      "ru": "Отчёт сохранён",
+      "zh-Hans": "报告已保存"
+    },
+    {
+      "key": "CantSaveReport",
+      "en": "Couldn't save the report: ",
+      "ru": "Не удалось сохранить отчёт: ",
+      "zh-Hans": "无法保存报告："
+    },
+    {
+      "key": "ReportTitle",
+      "en": "Roomy space report",
+      "ru": "Отчёт Roomy о месте на диске",
+      "zh-Hans": "Roomy 空间报告"
+    },
+    {
+      "key": "ReportFolders",
+      "en": "Largest folders",
+      "ru": "Самые крупные папки",
+      "zh-Hans": "最大的文件夹"
+    },
+    {
+      "key": "ReportFiles",
+      "en": "Largest files",
+      "ru": "Самые крупные файлы",
+      "zh-Hans": "最大的文件"
     }
   ]
 }

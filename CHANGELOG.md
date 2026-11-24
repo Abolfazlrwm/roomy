@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Space map: open and copy paths.** Right-click any folder for *Open in File Explorer* or *Copy path*, and use the new buttons next to the folder size for the folder you're in. Thanks to [@ViktorSon](https://github.com/ViktorSon) ([#8](https://github.com/krezio/roomy/issues/8)).
+- **Space map: export a report.** *Export report* saves a text file listing the biggest folders (as a tree) and files with full paths, handy for sharing or asking an assistant what's safe to remove. Thanks to [@ViktorSon](https://github.com/ViktorSon) ([#7](https://github.com/krezio/roomy/issues/7)).
 - **Fits smaller screens.** The main and Settings windows now shrink to fit the screen, so the Scan button and Save button never end up under the taskbar on laptops with high display scaling. Thanks to [@croupier](https://github.com/croupier) for finding it ([#6](https://github.com/krezio/roomy/pull/6)).
 - **Leftovers from uninstalled apps.** Roomy now finds folders in AppData that don't match anything installed and haven't changed in 3+ months (50 MB or more). They're always your call and never ticked, and with the Recycle Bin option on, whole folders go to the Recycle Bin. Suggested by Hyperion481 on Reddit.
 

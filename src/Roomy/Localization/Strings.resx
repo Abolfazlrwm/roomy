@@ -736,4 +736,37 @@
   <data name="LeftoverDetail" xml:space="preserve">
     <value>In {0} · untouched for {1}</value>
   </data>
+  <data name="CopyPath" xml:space="preserve">
+    <value>Copy path</value>
+  </data>
+  <data name="PathCopied" xml:space="preserve">
+    <value>Path copied</value>
+  </data>
+  <data name="OpenThisFolder" xml:space="preserve">
+    <value>Open this folder in File Explorer</value>
+  </data>
+  <data name="CopyThisPath" xml:space="preserve">
+    <value>Copy this folder's path</value>
+  </data>
+  <data name="ExportReport" xml:space="preserve">
+    <value>Export report</value>
+  </data>
+  <data name="ExportReportHint" xml:space="preserve">
+    <value>Save a text list of the biggest folders and files, with full paths</value>
+  </data>
+  <data name="ReportSaved" xml:space="preserve">
+    <value>Report saved</value>
+  </data>
+  <data name="CantSaveReport" xml:space="preserve">
+    <value>Couldn't save the report: </value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Roomy space report</value>
+  </data>
+  <data name="ReportFolders" xml:space="preserve">
+    <value>Largest folders</value>
+  </data>
+  <data name="ReportFiles" xml:space="preserve">
+    <value>Largest files</value>
+  </data>
 </root>

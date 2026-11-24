@@ -736,4 +736,37 @@
   <data name="LeftoverDetail" xml:space="preserve">
     <value>位于 {0} · {1}未改动</value>
   </data>
+  <data name="CopyPath" xml:space="preserve">
+    <value>复制路径</value>
+  </data>
+  <data name="PathCopied" xml:space="preserve">
+    <value>已复制路径</value>
+  </data>
+  <data name="OpenThisFolder" xml:space="preserve">
+    <value>在文件资源管理器中打开此文件夹</value>
+  </data>
+  <data name="CopyThisPath" xml:space="preserve">
+    <value>复制此文件夹的路径</value>
+  </data>
+  <data name="ExportReport" xml:space="preserve">
+    <value>导出报告</value>
+  </data>
+  <data name="ExportReportHint" xml:space="preserve">
+    <value>将最大的文件夹和文件（含完整路径）保存为文本列表</value>
+  </data>
+  <data name="ReportSaved" xml:space="preserve">
+    <value>报告已保存</value>
+  </data>
+  <data name="CantSaveReport" xml:space="preserve">
+    <value>无法保存报告：</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Roomy 空间报告</value>
+  </data>
+  <data name="ReportFolders" xml:space="preserve">
+    <value>最大的文件夹</value>
+  </data>
+  <data name="ReportFiles" xml:space="preserve">
+    <value>最大的文件</value>
+  </data>
 </root>

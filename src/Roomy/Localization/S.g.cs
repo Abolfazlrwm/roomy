@@ -738,4 +738,37 @@ public static class S
 
     /// <summary>In {0} · untouched for {1}</summary>
     public static string LeftoverDetail => Loc.Get("LeftoverDetail");
+
+    /// <summary>Copy path</summary>
+    public static string CopyPath => Loc.Get("CopyPath");
+
+    /// <summary>Path copied</summary>
+    public static string PathCopied => Loc.Get("PathCopied");
+
+    /// <summary>Open this folder in File Explorer</summary>
+    public static string OpenThisFolder => Loc.Get("OpenThisFolder");
+
+    /// <summary>Copy this folder's path</summary>
+    public static string CopyThisPath => Loc.Get("CopyThisPath");
+
+    /// <summary>Export report</summary>
+    public static string ExportReport => Loc.Get("ExportReport");
+
+    /// <summary>Save a text list of the biggest folders and files, with full paths</summary>
+    public static string ExportReportHint => Loc.Get("ExportReportHint");
+
+    /// <summary>Report saved</summary>
+    public static string ReportSaved => Loc.Get("ReportSaved");
+
+    /// <summary>Couldn't save the report: </summary>
+    public static string CantSaveReport => Loc.Get("CantSaveReport");
+
+    /// <summary>Roomy space report</summary>
+    public static string ReportTitle => Loc.Get("ReportTitle");
+
+    /// <summary>Largest folders</summary>
+    public static string ReportFolders => Loc.Get("ReportFolders");
+
+    /// <summary>Largest files</summary>
+    public static string ReportFiles => Loc.Get("ReportFiles");
 }

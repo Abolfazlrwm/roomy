@@ -736,4 +736,37 @@
   <data name="LeftoverDetail" xml:space="preserve">
     <value>В {0} · не менялась {1}</value>
   </data>
+  <data name="CopyPath" xml:space="preserve">
+    <value>Копировать путь</value>
+  </data>
+  <data name="PathCopied" xml:space="preserve">
+    <value>Путь скопирован</value>
+  </data>
+  <data name="OpenThisFolder" xml:space="preserve">
+    <value>Открыть эту папку в Проводнике</value>
+  </data>
+  <data name="CopyThisPath" xml:space="preserve">
+    <value>Копировать путь к этой папке</value>
+  </data>
+  <data name="ExportReport" xml:space="preserve">
+    <value>Экспорт отчёта</value>
+  </data>
+  <data name="ExportReportHint" xml:space="preserve">
+    <value>Сохранить текстовый список самых крупных папок и файлов с полными путями</value>
+  </data>
+  <data name="ReportSaved" xml:space="preserve">
+    <value>Отчёт сохранён</value>
+  </data>
+  <data name="CantSaveReport" xml:space="preserve">
+    <value>Не удалось сохранить отчёт: </value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Отчёт Roomy о месте на диске</value>
+  </data>
+  <data name="ReportFolders" xml:space="preserve">
+    <value>Самые крупные папки</value>
+  </data>
+  <data name="ReportFiles" xml:space="preserve">
+    <value>Самые крупные файлы</value>
+  </data>
 </root>

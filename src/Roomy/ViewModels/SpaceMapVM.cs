@@ -26,6 +26,42 @@ public sealed class SpaceMapVM : ObservableObject
             _ = ScanAsync();
         });
         UpCommand = new RelayCommand(() => { if (_current?.Parent is { } p) Navigate(p); });
+        OpenCurrentCommand = new RelayCommand(() => { if (CurrentPath is { } p) Shell.Open(p); });
+        CopyCurrentCommand = new RelayCommand(() => { if (CurrentPath is { } p) CopyPath(p); });
+        ExportCommand = new RelayCommand(Export);
+    }
+
+    /// <summary>The real folder behind the current view (the drive root when at the top).</summary>
+    string? CurrentPath => _current is null ? null : _current.Parent is null ? _drive?.Root : _current.FullPath;
+
+    void CopyPath(string path)
+    {
+        try { Clipboard.SetText(path); _main.ShowToast(S.PathCopied); }
+        catch { }
+    }
+
+    void Export()
+    {
+        if (_root is null || _drive is null) return;
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            FileName = $"roomy-space-report-{_drive.Letter.TrimEnd(':')}-{DateTime.Now:yyyy-MM-dd}.txt",
+            DefaultExt = ".txt",
+            Filter = "Text file (*.txt)|*.txt",
+        };
+        if (dialog.ShowDialog() != true) return;
+        try
+        {
+            var text = SpaceReport.Build(_root, _drive.Root, BigFiles.Select(b => b.Model), _drive.Total, _drive.Free,
+                DateTime.Now, S.ReportTitle, S.ReportFolders, S.ReportFiles);
+            File.WriteAllText(dialog.FileName, text);
+            _main.ShowToast(S.ReportSaved);
+            Shell.Reveal(dialog.FileName);
+        }
+        catch (Exception ex)
+        {
+            _main.ShowToast(S.CantSaveReport + ex.Message);
+        }
     }
 
     public ObservableCollection<DriveVM> Drives => _main.Drives;
@@ -66,6 +102,9 @@ public sealed class SpaceMapVM : ObservableObject
     public ICommand ScanCommand { get; }
     public ICommand SelectDriveCommand { get; }
     public ICommand UpCommand { get; }
+    public ICommand OpenCurrentCommand { get; }
+    public ICommand CopyCurrentCommand { get; }
+    public ICommand ExportCommand { get; }
 
     void Select(DriveVM d)
     {
@@ -140,12 +179,12 @@ public sealed class SpaceMapVM : ObservableObject
         foreach (var child in node.Children.Where(c => c.Size > 0).Take(80))
         {
             var target = child;
-            rows.Add(SpaceRowVM.Folder(target, denominator, () => Navigate(target)));
+            rows.Add(SpaceRowVM.Folder(target, denominator, () => Navigate(target), CopyPath));
         }
         if (node.FileBytes > 0)
         {
             var label = atRoot ? S.SystemFiles : Loc.Format("FilesInFolder", node.FileCount.ToString("N0"));
-            rows.Add(SpaceRowVM.Files(label, node.FileBytes, denominator, node.FullPath));
+            rows.Add(SpaceRowVM.Files(label, node.FileBytes, denominator, atRoot ? _drive?.Root ?? node.FullPath : node.FullPath, CopyPath));
         }
         if (atRoot && _unseen > 1L << 30)
             rows.Add(SpaceRowVM.Locked(S.LockedSystemFiles, _unseen, denominator));
@@ -183,6 +222,7 @@ public sealed class SpaceRowVM : ObservableObject
     public Brush BarBrush { get; init; } = Res.Brush("AccentGradient");
     public ICommand? OpenCommand { get; init; }
     public ICommand? RevealCommand { get; init; }
+    public ICommand? CopyPathCommand { get; init; }
     public bool CanReveal => RevealCommand != null;
     public bool CanOpen => OpenCommand != null;
     public string SizeText => Format.Bytes(Size);
@@ -193,19 +233,21 @@ public sealed class SpaceRowVM : ObservableObject
     public GridLength RestWidth => new(Math.Max(1 - _fraction, 0.0001), GridUnitType.Star);
     public void SetScale(long max) => _fraction = max > 0 ? (double)Size / max : 0;
 
-    public static SpaceRowVM Folder(SpaceNode n, long parentSize, Action open) => new()
+    public static SpaceRowVM Folder(SpaceNode n, long parentSize, Action open, Action<string> copy) => new()
     {
         Name = n.Name, Size = n.Size, ParentSize = parentSize,
         Glyph = G.Folder, GlyphBrush = Res.Brush("Accent2Brush"),
         OpenCommand = n.Children.Count > 0 ? new RelayCommand(open) : null,
         RevealCommand = new RelayCommand(() => Shell.Reveal(n.FullPath)),
+        CopyPathCommand = new RelayCommand(() => copy(n.FullPath)),
     };
 
-    public static SpaceRowVM Files(string label, long size, long parentSize, string folder) => new()
+    public static SpaceRowVM Files(string label, long size, long parentSize, string folder, Action<string> copy) => new()
     {
         Name = label, Size = size, ParentSize = parentSize,
         Glyph = G.Document, BarBrush = Res.Brush("MutedBrush"),
-        RevealCommand = new RelayCommand(() => Shell.Reveal(folder)),
+        RevealCommand = new RelayCommand(() => Shell.Open(folder)),
+        CopyPathCommand = new RelayCommand(() => copy(folder)),
     };
 
     public static SpaceRowVM Locked(string label, long size, long parentSize) => new()
@@ -222,6 +264,7 @@ public sealed record CrumbVM(string Name, bool IsFirst, ICommand Command)
 
 public sealed class BigFileVM(BigFile file)
 {
+    public BigFile Model { get; } = file;
     public string Name { get; } = Path.GetFileName(file.FullPath);
     public string Folder { get; } = Path.GetDirectoryName(file.FullPath) ?? "";
     public string SizeText { get; } = Format.Bytes(file.Size);

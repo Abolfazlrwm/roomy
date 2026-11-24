@@ -20,6 +20,9 @@
     <Compile Include="../../src/Roomy/Core/SafeFs.cs" Link="Core/SafeFs.cs" />
     <Compile Include="../../src/Roomy/Core/CacheFinder.cs" Link="Core/CacheFinder.cs" />
     <Compile Include="../../src/Roomy/Core/LeftoverFinder.cs" Link="Core/LeftoverFinder.cs" />
+    <Compile Include="../../src/Roomy/Core/SpaceReport.cs" Link="Core/SpaceReport.cs" />
+    <Compile Include="../../src/Roomy/Core/SpaceScanner.cs" Link="Core/SpaceScanner.cs" />
+    <Compile Include="../../src/Roomy/Core/Format.cs" Link="Core/Format.cs" />
     <Compile Include="../../src/Roomy/Core/CrashLog.cs" Link="Core/CrashLog.cs" />
     <Compile Include="../../src/Roomy/Core/Platform.cs" Link="Core/Platform.cs" />
     <Compile Include="../../src/Roomy/Core/Env.cs" Link="Core/Env.cs" />
