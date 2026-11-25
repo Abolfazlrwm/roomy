@@ -64,7 +64,8 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.05; }
 .hero h1 { font-size: clamp(36px, 7vw, 84px); font-weight: 800; text-wrap: balance; }
 .lede { max-width: 600px; margin: 22px auto 30px; font-size: 18.5px; color: var(--muted); }
 .ctas { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
-.dl-note { color: var(--faint); font-size: 13px; margin: 12px 0 0; font-variant-numeric: tabular-nums; }
+.dl-note { color: var(--muted); font-size: 14px; margin: 14px 0 0; font-variant-numeric: tabular-nums; }
+.dl-note b { color: var(--text); font-weight: 700; }
 .fine { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
 .store-badge { display: inline-block; margin-top: 14px; border-radius: 8px; transition: opacity .2s; }
 .store-badge:hover { opacity: .85; }
