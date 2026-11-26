@@ -21,6 +21,19 @@ public sealed class CrashLogTests : IDisposable
     }
 
     [Fact]
+    public void DatesUseTheStandardCalendarOnAnyWindowsLanguage()
+    {
+        var old = System.Globalization.CultureInfo.CurrentCulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("th-TH"); // Buddhist calendar
+            CrashLog.Write(new Exception("x"), "test");
+        }
+        finally { System.Globalization.CultureInfo.CurrentCulture = old; }
+        Assert.StartsWith($"===== {DateTime.Now.Year}-", File.ReadAllText(CrashLog.FilePath));
+    }
+
+    [Fact]
     public void StaysSmallWhenWrittenToALot()
     {
         var big = new string('x', 20_000);

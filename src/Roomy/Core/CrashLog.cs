@@ -15,12 +15,17 @@ public static class CrashLog
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Roomy", "crash.log");
 
     /// <summary>Logs anything that would otherwise end the process without a trace.</summary>
+    /// <summary>True once the app is closing. Errors from then on are logged but not shown.</summary>
+    public static bool Exiting { get; set; }
+
     public static void Install()
     {
+        AppDomain.CurrentDomain.ProcessExit += (_, _) => Exiting = true;
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
         {
-            Write(e.ExceptionObject as Exception, e.IsTerminating ? "fatal" : "unhandled");
-            if (e.IsTerminating) ShowNative(e.ExceptionObject as Exception);
+            Write(e.ExceptionObject as Exception, Exiting ? "while closing" : e.IsTerminating ? "fatal" : "unhandled");
+            // A failure during shutdown can't lose any work, so don't alarm people with a dialog.
+            if (e.IsTerminating && !Exiting) ShowNative(e.ExceptionObject as Exception);
         };
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
@@ -43,7 +48,7 @@ public static class CrashLog
             }
             var v = typeof(CrashLog).Assembly.GetName().Version;
             var sb = new StringBuilder()
-                .AppendLine($"===== {DateTime.Now:yyyy-MM-dd HH:mm:ss zzz} · {where}")
+                .AppendLine($"===== {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss zzz", System.Globalization.CultureInfo.InvariantCulture)} · {where}")
                 .AppendLine($"Roomy {v?.ToString(3) ?? "?"} · {RuntimeInformation.OSDescription} · {RuntimeInformation.OSArchitecture}")
                 .AppendLine($".NET {Environment.Version} · language {System.Globalization.CultureInfo.CurrentUICulture.Name} · admin {SafeIsElevated()}")
                 .AppendLine($"Args: {string.Join(' ', Environment.GetCommandLineArgs().Skip(1))}")

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Fixed: an error box when closing Roomy after a cleanup.** Cleaning temporary files could remove files that Roomy (and other single-file .NET apps) unpack into `%TEMP%\.net` and load while running. Cleanups now never touch those folders. Errors that happen while Roomy is already closing are logged without a dialog, and crash logs always use standard dates. Thanks to [@Nuermek](https://github.com/Nuermek) for the report and crash log ([#10](https://github.com/krezio/roomy/issues/10)).
+
 ## 0.1.6
 
 - **Fixed: Roomy crashing on startup on some Windows 10 PCs** (error `0x80131506`). .NET marks apps as compatible with the CPU's CET protection by default, and on Windows 10 builds missing a matching update the runtime refuses to start. Roomy no longer opts in. Thanks to [@littlemontana](https://github.com/littlemontana) for the report and testing ([#9](https://github.com/krezio/roomy/issues/9)).

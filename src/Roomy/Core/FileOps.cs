@@ -16,6 +16,13 @@ public static class FileOps
         ReturnSpecialDirectories = false,
     };
 
+    /// <summary>
+    /// ".net" folders hold the files that single-file .NET apps (Roomy itself included) unpack and load
+    /// while they run. Deleting them under a running app breaks it, so cleanup never goes inside.
+    /// </summary>
+    static bool IsRuntimeCache(ref FileSystemEntry x) =>
+        x.IsDirectory && x.FileName.Equals(".net", StringComparison.OrdinalIgnoreCase);
+
     static DateTime Cutoff(TimeSpan? minAge) => minAge is { } a ? DateTime.UtcNow - a : DateTime.MaxValue;
 
     public static bool Exists(string p) => File.Exists(p) || Directory.Exists(p);
@@ -40,6 +47,7 @@ public static class FileOps
                 (ref FileSystemEntry x) => (x.Length, x.LastWriteTimeUtc.UtcDateTime), Deep())
             {
                 ShouldIncludePredicate = (ref FileSystemEntry x) => !x.IsDirectory,
+                ShouldRecursePredicate = (ref FileSystemEntry x) => !IsRuntimeCache(ref x),
             };
             foreach (var (len, mod) in e)
             {
@@ -81,6 +89,7 @@ public static class FileOps
                 (ref FileSystemEntry x) => (x.ToFullPath(), x.Length, x.LastWriteTimeUtc.UtcDateTime), Deep())
             {
                 ShouldIncludePredicate = (ref FileSystemEntry x) => !x.IsDirectory,
+                ShouldRecursePredicate = (ref FileSystemEntry x) => !IsRuntimeCache(ref x),
             }.ToList();
         }
         catch { return default; }
@@ -100,7 +109,8 @@ public static class FileOps
         {
             var dirs = new FileSystemEnumerable<string>(root, (ref FileSystemEntry x) => x.ToFullPath(), Deep())
             {
-                ShouldIncludePredicate = (ref FileSystemEntry x) => x.IsDirectory,
+                ShouldIncludePredicate = (ref FileSystemEntry x) => x.IsDirectory && !IsRuntimeCache(ref x),
+                ShouldRecursePredicate = (ref FileSystemEntry x) => !IsRuntimeCache(ref x),
             }.ToList();
             foreach (var d in dirs.OrderByDescending(d => d.Count(ch => ch == '\\')))
             {

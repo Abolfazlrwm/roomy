@@ -181,6 +181,7 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        CrashLog.Exiting = true;
         _desktop?.Dispose();
         _activationRelay?.Dispose();
         _instance?.Dispose();

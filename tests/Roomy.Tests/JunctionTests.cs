@@ -110,6 +110,24 @@ public sealed class JunctionTests : IDisposable
         Assert.True(Directory.Exists(cache));
     }
 
+    [Fact]
+    public void RuntimeUnpackFoldersAreNeverCleaned()
+    {
+        // Single-file .NET apps (Roomy included) load files from %TEMP%\.net while they run (issue #10).
+        var temp = Path.Combine(_root, "fake-temp");
+        var runtime = Path.Combine(temp, ".net", "Roomy", "abc123");
+        Directory.CreateDirectory(runtime);
+        File.WriteAllText(Path.Combine(runtime, "vcruntime140_cor3.dll"), "keep");
+        File.WriteAllText(Path.Combine(temp, "junk.tmp"), "xx");
+
+        Assert.Equal((2L, 1), FileOps.Measure(temp, null));
+        var r = FileOps.Delete(temp, null);
+
+        Assert.Equal(1, r.Files);
+        Assert.True(File.Exists(Path.Combine(runtime, "vcruntime140_cor3.dll")));
+        Assert.False(File.Exists(Path.Combine(temp, "junk.tmp")));
+    }
+
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
     static extern uint GetShortPathNameW(string longPath, StringBuilder shortPath, uint length);
 
