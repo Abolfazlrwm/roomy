@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Fixed: Roomy crashing on startup on some Windows 10 PCs** (error `0x80131506`). .NET marks apps as compatible with the CPU's CET protection by default, and on Windows 10 builds missing a matching update the runtime refuses to start. Roomy no longer opts in. Thanks to [@littlemontana](https://github.com/littlemontana) for the report and testing ([#9](https://github.com/krezio/roomy/issues/9)).
 - **Space map: open and copy paths.** Right-click any folder for *Open in File Explorer* or *Copy path*, and use the new buttons next to the folder size for the folder you're in. Thanks to [@ViktorSon](https://github.com/ViktorSon) ([#8](https://github.com/krezio/roomy/issues/8)).
 - **Space map: export a report.** *Export report* saves a text file listing the biggest folders (as a tree) and files with full paths, handy for sharing or asking an assistant what's safe to remove. Thanks to [@ViktorSon](https://github.com/ViktorSon) ([#7](https://github.com/krezio/roomy/issues/7)).
 - **Fits smaller screens.** The main and Settings windows now shrink to fit the screen, so the Scan button and Save button never end up under the taskbar on laptops with high display scaling. Thanks to [@croupier](https://github.com/croupier) for finding it ([#6](https://github.com/krezio/roomy/pull/6)).

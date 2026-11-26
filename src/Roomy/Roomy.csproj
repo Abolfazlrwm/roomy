@@ -19,6 +19,9 @@
     <SatelliteResourceLanguages>en;ru;zh-Hans</SatelliteResourceLanguages>
     <!-- WPF owns DPI awareness; Windows Forms is only used for the tray icon. -->
     <NoWarn>$(NoWarn);SYSLIB1054;CA1416;WFO0003</NoWarn>
+    <!-- .NET marks apps CET-compatible by default. On Windows 10 builds without the matching update
+         (special user-mode APCs), the runtime then refuses to start with error 0x80131506. See issue #9. -->
+    <CETCompat>false</CETCompat>
   </PropertyGroup>
 
   <ItemGroup>
