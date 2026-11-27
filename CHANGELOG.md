@@ -1,11 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.1.7
 
-- **Fixed: the space map keeps its previous view when a rescan fails.** A failed rescan used to show the empty-state message on top of the rows that were still on screen.
-- **Fixed: the crash log stays readable after trimming.** When the log is cut to half its size, the cut now lands at an entry boundary instead of in the middle of a line (or even a character).
-- **Fixed: an interrupted settings save no longer leaves a stray `settings.json.*.tmp` file** in `%LOCALAPPDATA%\Roomy`. The next successful save removes ones older than an hour.
-- **Fixed: an error box when closing Roomy after a cleanup.** Cleaning temporary files could remove files that Roomy (and other single-file .NET apps) unpack into `%TEMP%\.net` and load while running. Cleanups now never touch those folders. Errors that happen while Roomy is already closing are logged without a dialog, and crash logs always use standard dates. Thanks to [@Nuermek](https://github.com/Nuermek) for the report and crash log ([#10](https://github.com/krezio/roomy/issues/10)).
+- **Fixed: an error box when closing Roomy after a cleanup.** Cleaning temporary files could remove files that Roomy (and other single-file .NET apps) unpack into `%TEMP%\.net` and load while running. Cleanups now never touch those folders. Errors that happen while Roomy is already closing are logged without a dialog, and crash logs always use standard dates. Thanks to [@Nuermek](https://github.com/Nuermek) and [@ra5533](https://github.com/ra5533) for the reports and crash logs ([#10](https://github.com/krezio/roomy/issues/10), [#13](https://github.com/krezio/roomy/issues/13)).
+- **Show the whole list.** Long categories show their first 40 items with a *Show more* / *Show less* toggle, so you can check and untick every item. Thanks to [@qonty27](https://github.com/qonty27) ([#11](https://github.com/krezio/roomy/pull/11)).
+- **Fixed: the space map keeps its previous view when a rescan fails**, instead of showing the empty-state message over the old rows.
+- **Fixed: the crash log stays readable after trimming.** The cut now lands at an entry boundary instead of in the middle of a line.
+- **Fixed: an interrupted settings save no longer leaves a stray `settings.json.*.tmp` file** in `%LOCALAPPDATA%\Roomy`.
+- The three fixes above were found by [@Abolfazlrwm](https://github.com/Abolfazlrwm) in a review of the code ([#12](https://github.com/krezio/roomy/pull/12)).
 
 ## 0.1.6
 
