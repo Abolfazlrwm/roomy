@@ -42,6 +42,19 @@ public sealed class CrashLogTests : IDisposable
     }
 
     [Fact]
+    public void TrimmingStartsAtACompleteEntry()
+    {
+        // One huge entry followed by small ones: the halfway cut lands well inside the big entry,
+        // so a mid-line cut starts the log in the middle of its "xxxx..." message.
+        CrashLog.Write(new Exception(new string('x', 260_000)), "huge");
+        for (int i = 0; i < 20; i++) CrashLog.Write(new Exception("small " + i), "small");
+        var text = File.ReadAllText(CrashLog.FilePath);
+        Assert.True(new FileInfo(CrashLog.FilePath).Length < 300 * 1024);
+        Assert.StartsWith("===== ", text);
+        Assert.Contains("small 19", text);
+    }
+
+    [Fact]
     public void NeverThrowsWhenTheFolderCantBeWritten()
     {
         CrashLog.FilePath = Path.Combine(_folder, "nul", "<bad>", "crash.log");

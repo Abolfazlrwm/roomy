@@ -26,6 +26,9 @@ public static class Cleaner
 
             if (job.Category.Action == CleanAction.EmptyRecycleBin)
             {
+                // Every other step honors the token before starting; emptying the bin itself
+                // (which can take a while) is one uninterruptible Windows call.
+                ct.ThrowIfCancellationRequested();
                 long size = job.Items.Sum(i => i.Size);
                 var (before, _) = Native.QueryRecycleBin();
                 Native.SHEmptyRecycleBin(IntPtr.Zero, null,

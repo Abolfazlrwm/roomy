@@ -12,7 +12,7 @@ public sealed class SpaceMapVM : ObservableObject
 {
     readonly MainVM _main;
     SpaceNode? _root, _current;
-    DriveVM? _drive;
+    DriveVM? _drive, _mapped; // _mapped: the drive the map on screen belongs to
     long _unseen;
 
     public SpaceMapVM(MainVM main)
@@ -153,6 +153,7 @@ public sealed class SpaceMapVM : ObservableObject
 
             root.Name = drive.Title;
             _root = root;
+            _mapped = drive;
             _unseen = Math.Max(0, drive.Used - root.Size);
             BigFiles.Clear();
             foreach (var b in big) BigFiles.Add(new BigFileVM(b));
@@ -161,6 +162,13 @@ public sealed class SpaceMapVM : ObservableObject
         }
         catch (Exception ex)
         {
+            // A failed rescan keeps the previous map on screen: HasData is already false, so the
+            // empty-state panel would otherwise sit on top of the stale rows and crumbs.
+            if (_root is not null)
+            {
+                HasData = true;
+                if (_mapped is not null) Select(_mapped); // the map on screen is still the previous drive's
+            }
             _main.ShowToast(S.CantMapDrive + ex.Message);
         }
         finally
