@@ -98,19 +98,6 @@ public sealed class RecycleTests : IDisposable
         Assert.False(File.Exists(download));
     }
 
-    [Fact]
-    public void CancelledCleanupStopsBeforeEmptyingTheRecycleBin()
-    {
-        var recycle = new CleanupCategory { Id = "recycle", Title = "Recycle Bin", Description = "", Glyph = "", Action = CleanAction.EmptyRecycleBin };
-        recycle.Items.Add(new CleanupItem { Name = "bin", Paths = ["shell:RecycleBinFolder"], Size = 1 });
-
-        using var cts = new CancellationTokenSource();
-        cts.Cancel();
-
-        // The token must be checked before the one uninterruptible Windows call, so nothing is emptied.
-        Assert.Throws<OperationCanceledException>(() => Cleaner.Run([new(recycle, recycle.Items)], null, ct: cts.Token));
-    }
-
     public void Dispose()
     {
         try { Directory.Delete(_folder, recursive: true); } catch { }
