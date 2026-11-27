@@ -42,9 +42,14 @@ public static class CrashLog
             Directory.CreateDirectory(dir);
             if (File.Exists(FilePath) && new FileInfo(FilePath).Length > MaxBytes)
             {
-                // Keep the newest half so the file never grows without limit.
+                // Keep the newest half so the file never grows without limit, but restart at an
+                // entry boundary (=====) so the log never begins inside a half-written entry or
+                // character. With no later entry, at least cut at a line boundary.
                 var old = File.ReadAllText(FilePath);
-                File.WriteAllText(FilePath, old[(old.Length / 2)..]);
+                var half = old.Length / 2;
+                var cut = old.IndexOf("\n===== ", half, StringComparison.Ordinal);
+                if (cut < 0) cut = old.IndexOf('\n', half);
+                File.WriteAllText(FilePath, old[(cut < 0 ? half : cut + 1)..]);
             }
             var v = typeof(CrashLog).Assembly.GetName().Version;
             var sb = new StringBuilder()
