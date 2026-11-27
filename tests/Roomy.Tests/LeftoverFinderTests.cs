@@ -58,6 +58,21 @@ public sealed class LeftoverFinderTests : IDisposable
         Assert.False(LeftoverFinder.BelongsToInstalled("OldPhotoEditor", new HashSet<string> { "spotify" }));
     }
 
+    [Fact]
+    public void MatchingWorksTheSameForAnyNameLength()
+    {
+        // The installed name is longer and contains the folder name.
+        Assert.True(LeftoverFinder.BelongsToInstalled("tool", new HashSet<string> { "toolkitremover" }));
+        // The folder name is longer and contains a word of an installed app.
+        Assert.True(LeftoverFinder.BelongsToInstalled("oldphotoeditor", new HashSet<string> { "photo" }));
+        // Equal names still match at equal length.
+        Assert.True(LeftoverFinder.BelongsToInstalled("obsstudio", new HashSet<string> { "obsstudio" }));
+        // Neither contains the other.
+        Assert.False(LeftoverFinder.BelongsToInstalled("torch", new HashSet<string> { "tornado" }));
+        // A very short installed name never matches by containment alone.
+        Assert.False(LeftoverFinder.BelongsToInstalled("photostudio", new HashSet<string> { "abc" }));
+    }
+
     public void Dispose()
     {
         try { Directory.Delete(_root, recursive: true); } catch { }

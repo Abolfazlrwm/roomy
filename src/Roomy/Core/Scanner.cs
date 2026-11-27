@@ -99,16 +99,21 @@ public static class Scanner
     static List<string> Running(params (string Proc, string Name)[] apps)
     {
         var list = new List<string>();
-        foreach (var (proc, name) in apps)
+        try
         {
-            try
+            // GetProcessesByName re-enumerates the whole process table for every name it's given,
+            // and the browser and app steps pass ~18 names between them. One snapshot answers all.
+            var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var p in Process.GetProcesses())
             {
-                var ps = Process.GetProcessesByName(proc);
-                if (ps.Length > 0 && !list.Contains(name)) list.Add(name);
-                foreach (var p in ps) p.Dispose();
+                try { names.Add(p.ProcessName); }
+                catch { }
+                p.Dispose();
             }
-            catch { }
+            foreach (var (_, name) in apps)
+                if (names.Contains(name) && !list.Contains(name)) list.Add(name);
         }
+        catch { }
         return list;
     }
 

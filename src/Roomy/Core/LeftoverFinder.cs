@@ -85,7 +85,13 @@ public static class LeftoverFinder
         var n = Norm(folderName);
         if (n.Length < 4) return true; // too short to judge, so never suggest it
         foreach (var name in installed)
-            if ((name.Length >= 4 && n.Contains(name)) || name.Contains(n)) return true;
+            // A name longer than the folder can only match by containing it, and the other way
+            // around for a shorter one. Skipping the impossible direction keeps the checks
+            // exactly the same, just cheaper on big installed sets.
+            if (name.Length <= n.Length
+                ? (name.Length >= 4 && n.Contains(name))
+                : name.Contains(n))
+                return true;
         return false;
     }
 
