@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Fixed: the space map keeps its previous view when a rescan fails.** A failed rescan used to show the empty-state message on top of the rows that were still on screen.
 - **Fixed: an error box when closing Roomy after a cleanup.** Cleaning temporary files could remove files that Roomy (and other single-file .NET apps) unpack into `%TEMP%\.net` and load while running. Cleanups now never touch those folders. Errors that happen while Roomy is already closing are logged without a dialog, and crash logs always use standard dates. Thanks to [@Nuermek](https://github.com/Nuermek) for the report and crash log ([#10](https://github.com/krezio/roomy/issues/10)).
 
 ## 0.1.6

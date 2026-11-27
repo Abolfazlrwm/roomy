@@ -161,6 +161,9 @@ public sealed class SpaceMapVM : ObservableObject
         }
         catch (Exception ex)
         {
+            // A failed rescan keeps the previous map on screen: HasData is already false, so the
+            // empty-state panel would otherwise sit on top of the stale rows and crumbs.
+            if (_root is not null) HasData = true;
             _main.ShowToast(S.CantMapDrive + ex.Message);
         }
         finally
