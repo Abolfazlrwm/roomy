@@ -51,12 +51,31 @@ public sealed class PreferencesStore(string path)
         {
             File.WriteAllText(temp, JsonSerializer.Serialize(preferences.Normalize(), new JsonSerializerOptions { WriteIndented = true }));
             File.Move(temp, path, overwrite: true);
+            SweepAbandonedTempFiles(temp);
         }
         finally
         {
             if (File.Exists(temp)) File.Delete(temp);
         }
         LoadError = null;
+    }
+
+    /// <summary>
+    /// A save that was interrupted by a crash or power loss can leave a settings.json.*.tmp behind.
+    /// Sweep old ones after a successful save; the age check keeps a file another Roomy instance
+    /// is writing right now safe.
+    /// </summary>
+    void SweepAbandonedTempFiles(string current)
+    {
+        try
+        {
+            var dir = Path.GetDirectoryName(Path.GetFullPath(path))!;
+            var pattern = Path.GetFileName(path) + ".*.tmp";
+            foreach (var f in Directory.GetFiles(dir, pattern))
+                if (f != current && File.GetLastWriteTimeUtc(f) < DateTime.UtcNow - TimeSpan.FromHours(1))
+                    File.Delete(f);
+        }
+        catch { /* never let tidy-up break the save */ }
     }
 }
 

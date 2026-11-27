@@ -69,6 +69,21 @@ public sealed class PreferencesTests : IDisposable
     }
 
     [Fact]
+    public void SavingSweepsTempFilesLeftByAnInterruptedSave()
+    {
+        Directory.CreateDirectory(_folder);
+        var stale = SettingsPath + ".0123456789abcdef0123456789abcdef.tmp";
+        File.WriteAllText(stale, "{}");
+        File.SetLastWriteTimeUtc(stale, DateTime.UtcNow - TimeSpan.FromHours(2));
+
+        new PreferencesStore(SettingsPath).Save(new() { RunInBackground = true });
+
+        Assert.False(File.Exists(stale));
+        Assert.Single(Directory.GetFiles(_folder));
+        Assert.True(new PreferencesStore(SettingsPath).Load().RunInBackground);
+    }
+
+    [Fact]
     public void OutOfRangeSettingsAreNormalizedOnLoad()
     {
         Directory.CreateDirectory(_folder);

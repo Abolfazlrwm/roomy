@@ -4,6 +4,7 @@
 
 - **Fixed: the space map keeps its previous view when a rescan fails.** A failed rescan used to show the empty-state message on top of the rows that were still on screen.
 - **Fixed: the crash log stays readable after trimming.** When the log is cut to half its size, the cut now lands at an entry boundary instead of in the middle of a line (or even a character).
+- **Fixed: an interrupted settings save no longer leaves a stray `settings.json.*.tmp` file** in `%LOCALAPPDATA%\Roomy`. The next successful save removes ones older than an hour.
 - **Fixed: an error box when closing Roomy after a cleanup.** Cleaning temporary files could remove files that Roomy (and other single-file .NET apps) unpack into `%TEMP%\.net` and load while running. Cleanups now never touch those folders. Errors that happen while Roomy is already closing are logged without a dialog, and crash logs always use standard dates. Thanks to [@Nuermek](https://github.com/Nuermek) for the report and crash log ([#10](https://github.com/krezio/roomy/issues/10)).
 
 ## 0.1.6
