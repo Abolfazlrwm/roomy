@@ -69,6 +69,8 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.035em; line-height: 1.05; }
 .fine { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
 .store-badge { display: inline-block; margin-top: 14px; border-radius: 8px; transition: opacity .2s; }
 .store-badge:hover { opacity: .85; }
+.store-note { max-width: 380px; margin: 10px auto 0; color: var(--faint); font-size: 13px; line-height: 1.5; }
+.free-tag { margin-left: 4px; padding: 2px 8px; border-radius: 6px; background: #111113; color: #f4f4f5; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 .store-badge img { display: block; height: 52px; width: auto; }
 
 .video-frame {

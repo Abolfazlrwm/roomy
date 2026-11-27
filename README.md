@@ -92,7 +92,7 @@ Roomy follows your Windows display language. It speaks **English**, **Русск
 
 ## Install
 
-**Easiest: [get Roomy from the Microsoft Store](https://apps.microsoft.com/detail/9P983BK0XVMC?mode=direct).** No "unknown publisher" warning, and it updates by itself.
+**Easiest: [get Roomy from the Microsoft Store](https://apps.microsoft.com/detail/9P983BK0XVMC?mode=direct).** Free, no "unknown publisher" warning, and it updates by itself.
 
 Or grab **Roomy-Setup.exe** (installs per-user, no admin needed) or **Roomy-portable.exe** from [Releases](https://github.com/krezio/roomy/releases/latest).
 
